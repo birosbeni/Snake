@@ -24,6 +24,9 @@ namespace Snake
         int dirY = 0;
         int headX = 60;
         int headY = 30;
+        int lastX;
+        int lastY;
+        int speed = 300;
 
         List<SnakePiece> snakePieces = new List<SnakePiece>();
         List<Apple> apples = new List<Apple>();
@@ -44,7 +47,7 @@ namespace Snake
             snakePieces.Add(sp2);
 
             //timer settings
-            timer.Interval = 500;
+            timer.Interval = speed;
             timer.Tick += Timer_Tick;
             timer.Start();
 
@@ -62,16 +65,27 @@ namespace Snake
         private void Timer_Tick(object sender, EventArgs e)
         {
             moves++;
-            Text = $"{moves}.lépés";
+            Text = $"{moves}.lépés, sebesség:{speed}, headX:{headX}, headY:{headY}, hossz:{snakePieces.LongCount()}";
 
             headX += dirX * SnakePiece.snakeSize;
             headY += dirY * SnakePiece.snakeSize;
+
+            foreach (SnakePiece item in snakePieces)
+            {
+                if ((item.Top == headY && item.Left == headX) || 
+                    headY < 0 || headY == screenHeight || 
+                    headX < 0 || headX == screenWidth) //TODO-screen size-hoz igazítás
+                {
+                    timer.Stop();
+                }
+
+            }
 
             //last snake piece remove
             CutOffSnakePiece();
 
             //new snake piece add
-            AddSnakePiece();
+            AddSnakePiece(headX, headY);
 
             //new apple
             if (moves % 2 == 0)
@@ -81,6 +95,9 @@ namespace Snake
                 apple.Top = rnd.Next(0, screenHeight / 30) * 30 - 30;
                 apples.Add(apple);
             }
+
+            //speeding
+            if (moves % 20 == 0) { speed -= 20; }
 
 
             foreach (SnakePiece piece in snakePieces)
@@ -95,8 +112,19 @@ namespace Snake
                     apples.Remove(apple);
                     Controls.Remove(apple);
 
-                    
-                    AddSnakePiece();
+                    List<SnakePiece> newSnakePieces = new List<SnakePiece>();
+
+                    //TODO-AddSnakePiece akármilyen listára
+                    SnakePiece newPiece = new SnakePiece();
+                    newPiece.Left = lastX;
+                    newPiece.Top = lastY;
+                    newSnakePieces.Add(newPiece);
+                    foreach (SnakePiece piece in snakePieces)
+                    {
+                        newSnakePieces.Add(piece);
+                    }
+
+                    snakePieces = newSnakePieces;                 
 
                     return;
                 }
@@ -105,6 +133,13 @@ namespace Snake
                     Controls.Add(apple);
                 }
 
+            }
+
+            //saving last position
+            foreach (SnakePiece piece in snakePieces)
+            {
+                lastX = piece.Left; 
+                lastY = piece.Top;  
             }
         }
 
@@ -116,11 +151,11 @@ namespace Snake
             if (e.KeyCode == Keys.Right) { dirX = 1; dirY = 0; }
         }
 
-        public void AddSnakePiece()
+        public void AddSnakePiece(int x, int y)
         {
             SnakePiece newPiece = new SnakePiece();     
-            newPiece.Left = headX;
-            newPiece.Top = headY;
+            newPiece.Left = x;
+            newPiece.Top = y;
             snakePieces.Add(newPiece);
         }
 
