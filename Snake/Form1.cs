@@ -179,10 +179,14 @@ namespace Snake
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.W && dirY != 1) { dirX = 0; dirY = -1; }
-            if (e.KeyCode == Keys.S && dirY != -1) { dirX = 0; dirY = 1; }
-            if (e.KeyCode == Keys.A && dirX != 1) { dirX = -1; dirY = 0; }
-            if (e.KeyCode == Keys.D && dirX != -1) { dirX = 1; dirY = 0; }
+            if (e.KeyCode == Keys.W && dirY != 1 &&
+                snakePieces[0].Top - 20 != snakePieces[1].Top && snakePieces[0].Left != snakePieces[1].Left) { dirX = 0; dirY = -1; }
+            if (e.KeyCode == Keys.S && dirY != -1 &&
+                snakePieces[0].Top + 20 != snakePieces[1].Top && snakePieces[0].Left != snakePieces[1].Left) { dirX = 0; dirY = 1; }
+            if (e.KeyCode == Keys.A && dirX != 1 &&
+                snakePieces[0].Top != snakePieces[1].Top && snakePieces[0].Left - 20 != snakePieces[1].Left) { dirX = -1; dirY = 0; }
+            if (e.KeyCode == Keys.D && dirX != -1 &&
+                snakePieces[0].Top != snakePieces[1].Top && snakePieces[0].Left + 20 != snakePieces[1].Left) { dirX = 1; dirY = 0; }
         }
 
         public void AddSnakePiece(int x, int y)
