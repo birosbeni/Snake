@@ -10,7 +10,7 @@ namespace Snake
 {
     internal class SnakePiece : PictureBox
     {
-        public static int snakeSize = 30;
+        public static int snakeSize = 20;
 
         public SnakePiece()
         {

@@ -10,7 +10,7 @@ namespace Snake
 {
     internal class Apple : PictureBox
     {
-        public static int appleSize = 30;
+        public static int appleSize = SnakePiece.snakeSize;
         public Apple()
         {
             this.Width = appleSize;
