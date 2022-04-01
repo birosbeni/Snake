@@ -91,5 +91,10 @@
   <ItemGroup>
     <Folder Include="System\Windows\" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="snakeInner.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
