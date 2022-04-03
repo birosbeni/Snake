@@ -30,6 +30,7 @@
         {
             this.startButton = new System.Windows.Forms.Button();
             this.restartButton = new System.Windows.Forms.Button();
+            this.ScoreLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // startButton
@@ -53,11 +54,22 @@
             this.restartButton.Visible = false;
             this.restartButton.Click += new System.EventHandler(this.restartButton_Click);
             // 
+            // ScoreLabel
+            // 
+            this.ScoreLabel.AutoSize = true;
+            this.ScoreLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.ScoreLabel.Location = new System.Drawing.Point(70, 22);
+            this.ScoreLabel.Name = "ScoreLabel";
+            this.ScoreLabel.Size = new System.Drawing.Size(126, 42);
+            this.ScoreLabel.TabIndex = 3;
+            this.ScoreLabel.Text = "Score:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1318, 649);
+            this.Controls.Add(this.ScoreLabel);
             this.Controls.Add(this.restartButton);
             this.Controls.Add(this.startButton);
             this.KeyPreview = true;
@@ -65,6 +77,7 @@
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -72,6 +85,7 @@
 
         private System.Windows.Forms.Button startButton;
         private System.Windows.Forms.Button restartButton;
+        private System.Windows.Forms.Label ScoreLabel;
     }
 }
 

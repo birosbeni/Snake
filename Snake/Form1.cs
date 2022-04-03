@@ -15,7 +15,9 @@ namespace Snake
         //screen sizes(must be divisibly by SnakePiece.snakeSize)
         public static int screenWidth = 1400;
         public static int screenHeight = 800;
-        int speed = 100;
+        int speed = 300;
+        int appleFrequent = 15;
+        int poisonFrequent = 50;
 
         Timer timer = new Timer();
         Random rnd = new Random();
@@ -28,6 +30,8 @@ namespace Snake
         int lastX;
         int lastY;
 
+        int score;
+
         List<SnakePiece> snakePieces = new List<SnakePiece>();
         List<Apple> apples = new List<Apple>();
         List<Poison> poisons = new List<Poison>();
@@ -36,16 +40,20 @@ namespace Snake
         {
             InitializeComponent();
 
+            
+
+            
+
             //starting snake snakePieces
             SnakePiece sp1 = new SnakePiece
             {
-                Left = 40,
-                Top = 40
+                Left = 50,
+                Top = 100
             };
             SnakePiece sp2 = new SnakePiece
             {
                 Left = 60,
-                Top = 40
+                Top = 100
             };
 
             snakePieces.Add(sp1);
@@ -64,12 +72,13 @@ namespace Snake
         {
             this.Width = screenWidth;
             this.Height = screenHeight;
+
         }
 
         private void Timer_Tick(object sender, EventArgs e)
         {
             moves++;
-            Text = $"Left:{startButton.Left} Top:{startButton.Top} Width:{startButton.Width} Height:{startButton.Height}{moves}.lépés, sebesség:{speed}, headX:{headX}, headY:{headY}, hossz:{snakePieces.LongCount()}";
+            Text = $"{moves}.lépés, sebesség:{speed}, headX:{headX}, headY:{headY}, hossz:{snakePieces.LongCount()}";
 
             headX += dirX * SnakePiece.snakeSize;
             headY += dirY * SnakePiece.snakeSize;
@@ -86,6 +95,8 @@ namespace Snake
 
             }
 
+            ScoreLabel.Text = "Score " + score.ToString();
+
             //last snake piece remove
             CutOffSnakePiece();
 
@@ -93,7 +104,7 @@ namespace Snake
             AddSnakePiece(headX, headY);
 
             //new apple
-            if (moves % 2 == 0)
+            if (moves % appleFrequent == 0)
             {
                 Apple apple = new Apple();
                 apple.Left = rnd.Next(0, screenWidth / SnakePiece.snakeSize) * SnakePiece.snakeSize - SnakePiece.snakeSize;
@@ -102,7 +113,7 @@ namespace Snake
             }
 
             //new poison
-            if (moves % 5 == 0)
+            if (moves % poisonFrequent == 0)
             {
                 Poison poison = new Poison();
                 poison.Left = rnd.Next(0, screenWidth / SnakePiece.snakeSize) * SnakePiece.snakeSize - SnakePiece.snakeSize;
@@ -139,7 +150,8 @@ namespace Snake
                         newSnakePieces.Add(piece);
                     }
 
-                    snakePieces = newSnakePieces;                 
+                    snakePieces = newSnakePieces;
+                    score++;
 
                     return;
                 }
@@ -235,12 +247,12 @@ namespace Snake
             SnakePiece sp1 = new SnakePiece
             {
                 Left = 40,
-                Top = 40
+                Top = 100
             };
             SnakePiece sp2 = new SnakePiece
             {
                 Left = 60,
-                Top = 40
+                Top = 100
             };
 
             snakePieces.Add(sp1);

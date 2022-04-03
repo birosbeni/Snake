@@ -18,7 +18,8 @@ namespace Snake
             this.Height = snakeSize;
 
             this.BackColor = Color.Green;
-            
+
+            this.BackgroundImage = Image.FromFile("snakeInner.png");
         }
     }
 }
