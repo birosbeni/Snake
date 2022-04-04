@@ -35,9 +35,10 @@
             // 
             // startButton
             // 
-            this.startButton.Location = new System.Drawing.Point(547, 295);
+            this.startButton.Location = new System.Drawing.Point(729, 363);
+            this.startButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.startButton.Name = "startButton";
-            this.startButton.Size = new System.Drawing.Size(132, 53);
+            this.startButton.Size = new System.Drawing.Size(176, 65);
             this.startButton.TabIndex = 0;
             this.startButton.Text = "Start";
             this.startButton.UseVisualStyleBackColor = true;
@@ -45,9 +46,10 @@
             // 
             // restartButton
             // 
-            this.restartButton.Location = new System.Drawing.Point(547, 295);
+            this.restartButton.Location = new System.Drawing.Point(729, 363);
+            this.restartButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.restartButton.Name = "restartButton";
-            this.restartButton.Size = new System.Drawing.Size(132, 53);
+            this.restartButton.Size = new System.Drawing.Size(176, 65);
             this.restartButton.TabIndex = 1;
             this.restartButton.Text = "Restart";
             this.restartButton.UseVisualStyleBackColor = true;
@@ -58,21 +60,23 @@
             // 
             this.ScoreLabel.AutoSize = true;
             this.ScoreLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.ScoreLabel.Location = new System.Drawing.Point(70, 22);
+            this.ScoreLabel.Location = new System.Drawing.Point(93, 15);
+            this.ScoreLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ScoreLabel.Name = "ScoreLabel";
-            this.ScoreLabel.Size = new System.Drawing.Size(126, 42);
+            this.ScoreLabel.Size = new System.Drawing.Size(159, 54);
             this.ScoreLabel.TabIndex = 3;
             this.ScoreLabel.Text = "Score:";
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1318, 649);
+            this.ClientSize = new System.Drawing.Size(1757, 799);
             this.Controls.Add(this.ScoreLabel);
             this.Controls.Add(this.restartButton);
             this.Controls.Add(this.startButton);
             this.KeyPreview = true;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);

@@ -16,7 +16,7 @@ namespace Snake
         public static int screenWidth = 1400;
         public static int screenHeight = 800;
         int speed = 300;
-        int appleFrequent = 15;
+        int appleFrequent = 10;
         int poisonFrequent = 50;
 
         Timer timer = new Timer();
@@ -26,7 +26,7 @@ namespace Snake
         int dirX = 1;
         int dirY = 0;
         int headX = 60;
-        int headY = 40;
+        int headY = 100;
         int lastX;
         int lastY;
 
@@ -40,9 +40,18 @@ namespace Snake
         {
             InitializeComponent();
 
-            
+            //line drawing
+            Label labelSeperator = new Label();
+            labelSeperator.Top = 56;
+            labelSeperator.Left = 0;
+            labelSeperator.Width = 1400;
+            labelSeperator.AutoSize = false;
+            labelSeperator.BackColor = Color.Black;
+            labelSeperator.Height = 4;
+            labelSeperator.BorderStyle = BorderStyle.Fixed3D;
+            this.Controls.Add(labelSeperator);
 
-            
+
 
             //starting snake snakePieces
             SnakePiece sp1 = new SnakePiece
@@ -108,7 +117,7 @@ namespace Snake
             {
                 Apple apple = new Apple();
                 apple.Left = rnd.Next(0, screenWidth / SnakePiece.snakeSize) * SnakePiece.snakeSize - SnakePiece.snakeSize;
-                apple.Top = rnd.Next(0, screenHeight / SnakePiece.snakeSize) * SnakePiece.snakeSize - SnakePiece.snakeSize;
+                apple.Top = 80 + (rnd.Next(0, screenHeight / SnakePiece.snakeSize-3) * SnakePiece.snakeSize - SnakePiece.snakeSize);
                 apples.Add(apple);
             }
 
@@ -221,7 +230,7 @@ namespace Snake
             speed = 500;
 
             headX = 60;
-            headY = 40;
+            headY = 100;
             dirX = 1;
             dirY = 0;
 
