@@ -73,9 +73,10 @@ namespace Snake
             timer.Tick += Timer_Tick;
 
             KeyDown += Form1_KeyDown;
+
         }
 
-
+        
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -87,7 +88,7 @@ namespace Snake
         private void Timer_Tick(object sender, EventArgs e)
         {
             moves++;
-            Text = $"{moves}.lépés, sebesség:{speed}, headX:{headX}, headY:{headY}, hossz:{snakePieces.LongCount()}";
+            //Text = $"{moves}.lépés, sebesség:{speed}, headX:{headX}, headY:{headY}, hossz:{snakePieces.LongCount()}";
 
             headX += dirX * SnakePiece.snakeSize;
             headY += dirY * SnakePiece.snakeSize;
@@ -129,9 +130,9 @@ namespace Snake
                 poison.Top = rnd.Next(0, screenHeight / SnakePiece.snakeSize) * SnakePiece.snakeSize - SnakePiece.snakeSize;
                 poisons.Add(poison);
             }
-
+            
             //speeding
-            if (moves % 20 == 0) { speed -= 20; }
+            if (moves % 20 == 0 && speed > 100) { speed -= 20; timer.Interval = speed; }
 
             //add snake
             foreach (SnakePiece piece in snakePieces)
@@ -200,16 +201,12 @@ namespace Snake
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.W && dirY != 1 &&
-                snakePieces[0].Top - 20 != snakePieces[1].Top && snakePieces[0].Left != snakePieces[1].Left) { dirX = 0; dirY = -1; }
-            if (e.KeyCode == Keys.S && dirY != -1 &&
-                snakePieces[0].Top + 20 != snakePieces[1].Top && snakePieces[0].Left != snakePieces[1].Left) { dirX = 0; dirY = 1; }
-            if (e.KeyCode == Keys.A && dirX != 1 &&
-                snakePieces[0].Top != snakePieces[1].Top && snakePieces[0].Left - 20 != snakePieces[1].Left) { dirX = -1; dirY = 0; }
-            if (e.KeyCode == Keys.D && dirX != -1 &&
-                snakePieces[0].Top != snakePieces[1].Top && snakePieces[0].Left + 20 != snakePieces[1].Left) { dirX = 1; dirY = 0; }
-        }
-
+            if (e.KeyCode == Keys.W && dirY != 1 ) { dirX = 0; dirY = -1; }
+            if (e.KeyCode == Keys.S && dirY != -1 ) { dirX = 0; dirY = 1; }
+            if (e.KeyCode == Keys.A && dirX != 1 ) { dirX = -1; dirY = 0; }
+            if (e.KeyCode == Keys.D && dirX != -1 ) { dirX = 1; dirY = 0; }
+        }//TODo -if (e.KeyCode == Keys.W && dirY != 1 && snakePieces[0].Top - 20 != snakePieces[1].Top && snakePieces[0].Left != snakePieces[1].Left) { dirX = 0; dirY = -1;  
+        
         public void AddSnakePiece(int x, int y)
         {
             SnakePiece newPiece = new SnakePiece();     
@@ -233,6 +230,8 @@ namespace Snake
             headY = 100;
             dirX = 1;
             dirY = 0;
+
+            score = 0;
 
             foreach (SnakePiece piece in snakePieces)
             {
