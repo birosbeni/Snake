@@ -23,16 +23,28 @@ namespace Snake
         Random rnd = new Random();
 
         int moves;
-        int dirX = 1;
-        int dirY = 0;
-        int headX = 60;
-        int headY = 100;
-        int lastX;
-        int lastY;
+        //LAST
+        string winner;
 
-        int score;
+        int dirX1 = 1;
+        int dirY1 = 0;
+        int headX1 = 60;
+        int headY1 = 100;
+        int lastx1;
+        int lastY1;
+        int score1;
 
-        List<SnakePiece> snakePieces = new List<SnakePiece>();
+        int dirX2 = -1;
+        int dirY2 = 0;
+        int headX2 = 660;
+        int headY2 = 100;
+        int lastx2;
+        int lastY2;
+        int score2;
+
+        List<SnakePiece> snakePieces1 = new List<SnakePiece>();
+        List<SnakePiece> snakePieces2 = new List<SnakePiece>();
+
         List<Apple> apples = new List<Apple>();
         List<Poison> poisons = new List<Poison>();
 
@@ -53,20 +65,35 @@ namespace Snake
 
 
 
-            //starting snake snakePieces
-            SnakePiece sp1 = new SnakePiece
+            //starting snake snakePieces1
+            SnakePiece sp11 = new SnakePiece
             {
                 Left = 50,
                 Top = 100
             };
-            SnakePiece sp2 = new SnakePiece
+            SnakePiece sp12 = new SnakePiece
             {
                 Left = 60,
                 Top = 100
             };
+            snakePieces1.Add(sp11);
+            snakePieces1.Add(sp12);
 
-            snakePieces.Add(sp1);
-            snakePieces.Add(sp2);
+            SnakePiece sp21 = new SnakePiece
+            {
+                Left = 650,
+                Top = 100
+            };
+            SnakePiece sp22 = new SnakePiece
+            {
+                Left = 660,
+                Top = 100
+            };
+            snakePieces2.Add(sp21);
+            snakePieces2.Add(sp22);
+
+
+
 
             //timer settings
             timer.Interval = speed;
@@ -88,16 +115,21 @@ namespace Snake
         private void Timer_Tick(object sender, EventArgs e)
         {
             moves++;
-            //Text = $"{moves}.lépés, sebesség:{speed}, headX:{headX}, headY:{headY}, hossz:{snakePieces.LongCount()}";
+            //Text = $"{moves}.lépés, sebesség:{speed}, headX1:{headX1}, headY1:{headY1}, hossz:{snakePieces1.LongCount()}";
 
-            headX += dirX * SnakePiece.snakeSize;
-            headY += dirY * SnakePiece.snakeSize;
+            //x2
+            headX1 += dirX1 * SnakePiece.snakeSize;
+            headY1 += dirY1 * SnakePiece.snakeSize;
 
-            foreach (SnakePiece item in snakePieces)
+            headX2 += dirX2 * SnakePiece.snakeSize;
+            headY2 += dirY2 * SnakePiece.snakeSize;
+
+            //x2
+            foreach (SnakePiece item in snakePieces1)
             {
-                if ((item.Top == headY && item.Left == headX) || 
-                    headY < 0 || headY == screenHeight || 
-                    headX < 0 || headX == screenWidth) //TODO-screen size-hoz igazítás
+                if ((item.Top == headY1 && item.Left == headX1) || 
+                    headY1 < 0 || headY1 == screenHeight || 
+                    headX1 < 0 || headX1 == screenWidth) //TODO-screen size-hoz igazítás
                 {
                     timer.Stop();
                     restartButton.Visible = true;
@@ -105,13 +137,32 @@ namespace Snake
 
             }
 
-            ScoreLabel.Text = "Score " + score.ToString();
+            foreach (SnakePiece item in snakePieces2)
+            {
+                if ((item.Top == headY2 && item.Left == headX2) ||
+                    headY2 < 0 || headY2 == screenHeight ||
+                    headX2 < 0 || headX2 == screenWidth) //TODO-screen size-hoz igazítás
+                {
+                    timer.Stop();
+                    restartButton.Visible = true;
+                }
+
+            }
+
+            score1Label.Text = $"Score1: {score1}   Score2: {score2}";
 
             //last snake piece remove
             CutOffSnakePiece();
+            SnakePiece cutOff2 = snakePieces2[0];
+            Controls.Remove(cutOff2);
+            snakePieces2.Remove(cutOff2);
 
             //new snake piece add
-            AddSnakePiece(headX, headY);
+            AddSnakePiece(headX1, headY1);
+            SnakePiece newPiece2 = new SnakePiece();
+            newPiece2.Left = headX2;
+            newPiece2.Top = headY2;
+            snakePieces2.Add(newPiece2);
 
             //new apple
             if (moves % appleFrequent == 0)
@@ -135,7 +186,12 @@ namespace Snake
             if (moves % 20 == 0 && speed > 100) { speed -= 20; timer.Interval = speed; }
 
             //add snake
-            foreach (SnakePiece piece in snakePieces)
+            foreach (SnakePiece piece in snakePieces1)
+            {
+                Controls.Add(piece);
+            }
+
+            foreach (SnakePiece piece in snakePieces2)
             {
                 Controls.Add(piece);
             }
@@ -143,25 +199,47 @@ namespace Snake
             //add apple or grow snake
             foreach (Apple apple in apples)
             {
-                if (apple.Left == headX && apple.Top == headY)
+                if (apple.Left == headX1 && apple.Top == headY1)
                 {
                     apples.Remove(apple);
                     Controls.Remove(apple);
 
-                    List<SnakePiece> newSnakePieces = new List<SnakePiece>();
+                    List<SnakePiece> newsnakePieces1 = new List<SnakePiece>();
 
                     //TODO-AddSnakePiece akármilyen listára
                     SnakePiece newPiece = new SnakePiece();
-                    newPiece.Left = lastX;
-                    newPiece.Top = lastY;
-                    newSnakePieces.Add(newPiece);
-                    foreach (SnakePiece piece in snakePieces)
+                    newPiece.Left = lastx1;
+                    newPiece.Top = lastY1;
+                    newsnakePieces1.Add(newPiece);
+                    foreach (SnakePiece piece in snakePieces1)
                     {
-                        newSnakePieces.Add(piece);
+                        newsnakePieces1.Add(piece);
                     }
 
-                    snakePieces = newSnakePieces;
-                    score++;
+                    snakePieces1 = newsnakePieces1;
+                    score1++;
+
+                    return;
+                }
+                else if (apple.Left == headX2 && apple.Top == headY2)
+                {
+                    apples.Remove(apple);
+                    Controls.Remove(apple);
+
+                    List<SnakePiece> newsnakePieces2 = new List<SnakePiece>();
+
+                    //TODO-AddSnakePiece akármilyen listára
+                    SnakePiece newPiece = new SnakePiece();
+                    newPiece.Left = lastx2;
+                    newPiece.Top = lastY2;
+                    newsnakePieces2.Add(newPiece);
+                    foreach (SnakePiece piece in snakePieces2)
+                    {
+                        newsnakePieces2.Add(piece);
+                    }
+
+                    snakePieces2 = newsnakePieces2;
+                    score2++;
 
                     return;
                 }
@@ -173,7 +251,12 @@ namespace Snake
 
             foreach (Poison poison in poisons)
             {
-                if (poison.Left == headX && poison.Top == headY)
+                if (poison.Left == headX1 && poison.Top == headY1)
+                {
+                    timer.Stop();
+                    restartButton.Visible = true;
+                }
+                else if (poison.Left == headX2 && poison.Top == headY2)
                 {
                     timer.Stop();
                     restartButton.Visible = true;
@@ -185,11 +268,34 @@ namespace Snake
 
             }
 
-            //saving last position
-            foreach (SnakePiece piece in snakePieces)
+            foreach (SnakePiece item in snakePieces1)
             {
-                lastX = piece.Left; 
-                lastY = piece.Top;  
+                if (headY2 == item.Top && headX2 == item.Left)
+                {
+                    timer.Stop();
+                    restartButton.Visible = true;
+                }
+            }
+
+            foreach (SnakePiece item in snakePieces2)
+            {
+                if (headY1 == item.Top && headX1 == item.Left)
+                {
+                    timer.Stop();
+                    restartButton.Visible = true;
+                }
+            }
+
+            //saving last position
+            foreach (SnakePiece piece in snakePieces1)
+            {
+                lastx1 = piece.Left; 
+                lastY1 = piece.Top;  
+            }
+            foreach (SnakePiece piece in snakePieces2)
+            {
+                lastx2 = piece.Left;
+                lastY2 = piece.Top;
             }
         }
 
@@ -201,39 +307,53 @@ namespace Snake
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.W && dirY != 1 ) { dirX = 0; dirY = -1; }
-            if (e.KeyCode == Keys.S && dirY != -1 ) { dirX = 0; dirY = 1; }
-            if (e.KeyCode == Keys.A && dirX != 1 ) { dirX = -1; dirY = 0; }
-            if (e.KeyCode == Keys.D && dirX != -1 ) { dirX = 1; dirY = 0; }
-        }//TODo -if (e.KeyCode == Keys.W && dirY != 1 && snakePieces[0].Top - 20 != snakePieces[1].Top && snakePieces[0].Left != snakePieces[1].Left) { dirX = 0; dirY = -1;  
+            if (e.KeyCode == Keys.W && dirY1 != 1 ) { dirX1 = 0; dirY1 = -1; }
+            if (e.KeyCode == Keys.S && dirY1 != -1 ) { dirX1 = 0; dirY1 = 1; }
+            if (e.KeyCode == Keys.A && dirX1 != 1 ) { dirX1 = -1; dirY1 = 0; }
+            if (e.KeyCode == Keys.D && dirX1 != -1 ) { dirX1 = 1; dirY1 = 0; }
+
+            if (e.KeyCode == Keys.Up && dirY2 != 1) { dirX2 = 0; dirY2 = -1; }
+            if (e.KeyCode == Keys.Down && dirY2 != -1) { dirX2 = 0; dirY2 = 1; }
+            if (e.KeyCode == Keys.Left && dirX2 != 1) { dirX2 = -1; dirY2 = 0; }
+            if (e.KeyCode == Keys.Right && dirX2 != -1) { dirX2 = 1; dirY2 = 0; }
+        }//TODo -if (e.KeyCode == Keys.W && dirY1 != 1 && snakePieces1[0].Top - 20 != snakePieces1[1].Top && snakePieces1[0].Left != snakePieces1[1].Left) { dirX1 = 0; dirY1 = -1;  
         
         public void AddSnakePiece(int x, int y)
         {
             SnakePiece newPiece = new SnakePiece();     
             newPiece.Left = x;
             newPiece.Top = y;
-            snakePieces.Add(newPiece);
+            snakePieces1.Add(newPiece);
         }
 
         public void CutOffSnakePiece()
         {
-            SnakePiece cutOff = snakePieces[0];
+            SnakePiece cutOff = snakePieces1[0];
             Controls.Remove(cutOff);
-            snakePieces.Remove(cutOff);
+            snakePieces1.Remove(cutOff);
         }
 
         private void restartButton_Click(object sender, EventArgs e)
         {
             speed = 500;
 
-            headX = 60;
-            headY = 100;
-            dirX = 1;
-            dirY = 0;
+            headX1 = 60;
+            headY1 = 100;
+            dirX1 = 1;
+            dirY1 = 0;
+            score1 = 0;
+            headX2 = 660;
+            headY2 = 100;
+            dirX2 = -1;
+            dirY2 = 0;
+            score2 = 0;
 
-            score = 0;
+            foreach (SnakePiece piece in snakePieces1)
+            {
+                Controls.Remove(piece);
+            }
 
-            foreach (SnakePiece piece in snakePieces)
+            foreach (SnakePiece piece in snakePieces2)
             {
                 Controls.Remove(piece);
             }
@@ -248,7 +368,8 @@ namespace Snake
                 Controls.Remove(piece);
             }
 
-            snakePieces.Clear();
+            snakePieces1.Clear();
+            snakePieces2.Clear();
             apples.Clear();
             poisons.Clear();
 
@@ -263,8 +384,22 @@ namespace Snake
                 Top = 100
             };
 
-            snakePieces.Add(sp1);
-            snakePieces.Add(sp2);
+            snakePieces1.Add(sp1);
+            snakePieces1.Add(sp2);
+
+
+            SnakePiece sp21 = new SnakePiece
+            {
+                Left = 650,
+                Top = 100
+            };
+            SnakePiece sp22 = new SnakePiece
+            {
+                Left = 660,
+                Top = 100
+            };
+            snakePieces2.Add(sp21);
+            snakePieces2.Add(sp22);
 
             timer.Start();
 
