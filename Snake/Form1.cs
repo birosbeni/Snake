@@ -36,7 +36,7 @@ namespace Snake
 
         int dirX2 = -1;
         int dirY2 = 0;
-        int headX2 = 660;
+        int headX2 = 860;
         int headY2 = 100;
         int lastx2;
         int lastY2;
@@ -81,12 +81,12 @@ namespace Snake
 
             SnakePiece sp21 = new SnakePiece
             {
-                Left = 650,
+                Left = 850,
                 Top = 100
             };
             SnakePiece sp22 = new SnakePiece
             {
-                Left = 660,
+                Left = 860,
                 Top = 100
             };
             snakePieces2.Add(sp21);
@@ -115,7 +115,7 @@ namespace Snake
         private void Timer_Tick(object sender, EventArgs e)
         {
             moves++;
-            //Text = $"{moves}.lépés, sebesség:{speed}, headX1:{headX1}, headY1:{headY1}, hossz:{snakePieces1.LongCount()}";
+            Text = $"{moves}.lépés, sebesség:{speed}, headX1:{headX1}, headY1:{headY1}, headX2:{headX2}, headY2:{headY2}, hossz:{snakePieces1.LongCount()}";
 
             //x2
             headX1 += dirX1 * SnakePiece.snakeSize;
@@ -342,7 +342,7 @@ namespace Snake
             dirX1 = 1;
             dirY1 = 0;
             score1 = 0;
-            headX2 = 660;
+            headX2 = 860;
             headY2 = 100;
             dirX2 = -1;
             dirY2 = 0;
@@ -390,12 +390,12 @@ namespace Snake
 
             SnakePiece sp21 = new SnakePiece
             {
-                Left = 650,
+                Left = 850,
                 Top = 100
             };
             SnakePiece sp22 = new SnakePiece
             {
-                Left = 660,
+                Left = 860,
                 Top = 100
             };
             snakePieces2.Add(sp21);
