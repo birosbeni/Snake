@@ -178,7 +178,7 @@ namespace Snake
             {
                 Poison poison = new Poison();
                 poison.Left = rnd.Next(0, screenWidth / SnakePiece.snakeSize) * SnakePiece.snakeSize - SnakePiece.snakeSize;
-                poison.Top = rnd.Next(0, screenHeight / SnakePiece.snakeSize) * SnakePiece.snakeSize - SnakePiece.snakeSize;
+                poison.Top = 80 + (rnd.Next(0, screenHeight / SnakePiece.snakeSize - 3) * SnakePiece.snakeSize - SnakePiece.snakeSize);
                 poisons.Add(poison);
             }
             
