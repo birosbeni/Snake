@@ -38,12 +38,12 @@ namespace Snake
         int dirY2 = 0;
         int headX2 = 860;
         int headY2 = 100;
-        int lastx2;
+        int lastX2;
         int lastY2;
         int score2;
 
-        List<SnakePiece> snakePieces1 = new List<SnakePiece>();
-        List<SnakePiece> snakePieces2 = new List<SnakePiece>();
+        static List<SnakePiece> snakePieces1 = new List<SnakePiece>();
+        static List<SnakePiece> snakePieces2 = new List<SnakePiece>();
 
         List<Apple> apples = new List<Apple>();
         List<Poison> poisons = new List<Poison>();
@@ -64,36 +64,7 @@ namespace Snake
             this.Controls.Add(labelSeperator);
 
 
-
-            //starting snake snakePieces1
-            SnakePiece sp11 = new SnakePiece
-            {
-                Left = 50,
-                Top = 100
-            };
-            SnakePiece sp12 = new SnakePiece
-            {
-                Left = 60,
-                Top = 100
-            };
-            snakePieces1.Add(sp11);
-            snakePieces1.Add(sp12);
-
-            SnakePiece sp21 = new SnakePiece
-            {
-                Left = 850,
-                Top = 100
-            };
-            SnakePiece sp22 = new SnakePiece
-            {
-                Left = 860,
-                Top = 100
-            };
-            snakePieces2.Add(sp21);
-            snakePieces2.Add(sp22);
-
-
-
+            StartingSnakePieces(50, 100, 60, 100, 850, 100, 860, 100);
 
             //timer settings
             timer.Interval = speed;
@@ -236,7 +207,7 @@ namespace Snake
 
                     //TODO-AddSnakePiece akármilyen listára
                     SnakePiece newPiece = new SnakePiece();
-                    newPiece.Left = lastx2;
+                    newPiece.Left = lastX2;
                     newPiece.Top = lastY2;
                     newsnakePieces2.Add(newPiece);
                     foreach (SnakePiece piece in snakePieces2)
@@ -322,7 +293,7 @@ namespace Snake
             }
             foreach (SnakePiece piece in snakePieces2)
             {
-                lastx2 = piece.Left;
+                lastX2 = piece.Left;
                 lastY2 = piece.Top;
             }
         }
@@ -359,6 +330,36 @@ namespace Snake
             SnakePiece cutOff = snakeList[0];
             //Controls.Remove(cutOff);
             snakeList.Remove(cutOff);
+        }
+
+        static void StartingSnakePieces(int x11, int y11, int x12, int y12, int x21, int y21, int x22, int y22)
+        {
+            //starting snake snakePieces1
+            SnakePiece sp11 = new SnakePiece
+            {
+                Left = x11,
+                Top = y11
+            };
+            SnakePiece sp12 = new SnakePiece
+            {
+                Left = x12,
+                Top = y12
+            };
+            snakePieces1.Add(sp11);
+            snakePieces1.Add(sp12);
+
+            SnakePiece sp21 = new SnakePiece
+            {
+                Left = x21,
+                Top = y21
+            };
+            SnakePiece sp22 = new SnakePiece
+            {
+                Left = x22,
+                Top = y22
+            };
+            snakePieces2.Add(sp21);
+            snakePieces2.Add(sp22);
         }
 
 
@@ -402,34 +403,7 @@ namespace Snake
             apples.Clear();
             poisons.Clear();
 
-            SnakePiece sp1 = new SnakePiece
-            {
-                Left = 40,
-                Top = 100
-            };
-            SnakePiece sp2 = new SnakePiece
-            {
-                Left = 60,
-                Top = 100
-            };
-
-            snakePieces1.Add(sp1);
-            snakePieces1.Add(sp2);
-
-
-            SnakePiece sp21 = new SnakePiece
-            {
-                Left = 850,
-                Top = 100
-            };
-            SnakePiece sp22 = new SnakePiece
-            {
-                Left = 860,
-                Top = 100
-            };
-            snakePieces2.Add(sp21);
-            snakePieces2.Add(sp22);
-
+            StartingSnakePieces(50, 100, 60, 100, 850, 100, 860, 100);
             winnerLabel.Visible = false;
 
             timer.Start();
@@ -438,3 +412,4 @@ namespace Snake
         }
     }
 }
+
