@@ -158,18 +158,17 @@ namespace Snake
             score1Label.Text = $"Score1: {score1}   Score2: {score2}";
 
             //last snake piece remove
-            CutOffSnakePiece();
+            //CutOffSnakePiece();
             SnakePiece cutOff2 = snakePieces2[0];
             Controls.Remove(cutOff2);
             snakePieces2.Remove(cutOff2);
+            SnakePiece cutOff1 = snakePieces1[0];
+            Controls.Remove(cutOff1);
+            snakePieces1.Remove(cutOff1);
 
             //new snake piece add
-            AddSnakePiece(headX1, headY1);
-
-            SnakePiece newPiece2 = new SnakePiece();
-            newPiece2.Left = headX2;
-            newPiece2.Top = headY2;
-            snakePieces2.Add(newPiece2);
+            AddSnakePiece(headX1, headY1, snakePieces1);
+            AddSnakePiece(headX2, headY2, snakePieces2);
 
             //new apple
             if (moves % appleFrequent == 0)
@@ -347,20 +346,21 @@ namespace Snake
             if (e.KeyCode == Keys.Right && dirX2 != -1) { dirX2 = 1; dirY2 = 0; }
         }//TODo -if (e.KeyCode == Keys.W && dirY1 != 1 && snakePieces1[0].Top - 20 != snakePieces1[1].Top && snakePieces1[0].Left != snakePieces1[1].Left) { dirX1 = 0; dirY1 = -1;  
         
-        public void AddSnakePiece(int x, int y)
+        static void AddSnakePiece(int x, int y, List<SnakePiece> snakeList)
         {
             SnakePiece newPiece = new SnakePiece();     
             newPiece.Left = x;
             newPiece.Top = y;
-            snakePieces1.Add(newPiece);
+            snakeList.Add(newPiece);
         }
 
-        public void CutOffSnakePiece()
+        static void CutOffSnakePiece(List<SnakePiece> snakeList)
         {
-            SnakePiece cutOff = snakePieces1[0];
-            Controls.Remove(cutOff);
-            snakePieces1.Remove(cutOff);
+            SnakePiece cutOff = snakeList[0];
+            //Controls.Remove(cutOff);
+            snakeList.Remove(cutOff);
         }
+
 
         private void restartButton_Click(object sender, EventArgs e)
         {
