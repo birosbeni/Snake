@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Snake
 {
-    internal class SnakePiece : PictureBox
+    public class SnakePiece : PictureBox
     {
         public static int snakeSize = 20;
 
