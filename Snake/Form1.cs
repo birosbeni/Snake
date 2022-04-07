@@ -237,12 +237,6 @@ namespace Snake
             }
         }
 
-        private void startButton_Click(object sender, EventArgs e)
-        {
-            timer.Start();
-            startButton.Visible = false;
-        }
-
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.W && dirY1 != 1 ) { dirX1 = 0; dirY1 = -1; }
@@ -278,24 +272,13 @@ namespace Snake
                 newsnakePieces.Add(piece);
             }
 
-            if (snakeList == snakePieces1)
-            {
-                snakePieces1 = newsnakePieces;
-                score1++;
-            }
-            else
-            {
-                snakePieces2 = newsnakePieces;
-                score2++;
-            }
+            if (snakeList == snakePieces1) { snakePieces1 = newsnakePieces; score1++; }
+            else { snakePieces2 = newsnakePieces; score2++; }
         }
 
         public void DrawSnake(List<SnakePiece> snakeList)
         {
-            foreach (SnakePiece piece in snakeList)
-            {
-                Controls.Add(piece);
-            }
+            foreach (SnakePiece piece in snakeList) { Controls.Add(piece); }
         }
 
         public void CutOffSnakePiece(List<SnakePiece> snakeList)
@@ -319,7 +302,6 @@ namespace Snake
                     winnerLabel.Visible = true;
                     restartButton.Visible = true;
                 }
-
             }
         }
 
@@ -375,7 +357,11 @@ namespace Snake
                 Controls.Remove(piece);
             }
         }
-
+        private void startButton_Click(object sender, EventArgs e)
+        {
+            timer.Start();
+            startButton.Visible = false;
+        }
 
         private void restartButton_Click(object sender, EventArgs e)
         {
