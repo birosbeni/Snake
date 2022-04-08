@@ -14,7 +14,7 @@ namespace Snake
     {
         //screen sizes(must be divisibly by SnakePiece.snakeSize)
         public static int screenWidth = 1400;
-        public static int screenHeight = 800;
+        public static int screenHeight = 700;
         int speed = 300;
         int appleFrequent = 10;
         int poisonFrequent = 50;
@@ -23,8 +23,7 @@ namespace Snake
         Random rnd = new Random();
 
         int moves;
-        
-        string winner;
+        int level = 1;
 
         int dirX1 = 1;
         int dirY1 = 0;
@@ -32,7 +31,8 @@ namespace Snake
         int headY1 = 100;
         int lastX1;
         int lastY1;
-        int score1;
+        int length1;
+        int point1;
 
         int dirX2 = -1;
         int dirY2 = 0;
@@ -40,7 +40,8 @@ namespace Snake
         int headY2 = 100;
         int lastX2;
         int lastY2;
-        int score2;
+        int length2;
+        int point2;
 
         static List<SnakePiece> snakePieces1 = new List<SnakePiece>();
         static List<SnakePiece> snakePieces2 = new List<SnakePiece>();
@@ -53,15 +54,10 @@ namespace Snake
             InitializeComponent();
 
             //line drawing
-            Label labelSeperator = new Label();
-            labelSeperator.Top = 56;
-            labelSeperator.Left = 0;
-            labelSeperator.Width = 1400;
-            labelSeperator.AutoSize = false;
-            labelSeperator.BackColor = Color.Black;
-            labelSeperator.Height = 4;
-            labelSeperator.BorderStyle = BorderStyle.Fixed3D;
-            this.Controls.Add(labelSeperator);
+            DrawLine(56, 0, 1400, 4, Color.Black); //top
+            DrawLine(756, 0, 1400, 4, Color.Black); //bottom
+            DrawLine(56, 0, 4, 700, Color.Black); //left
+            DrawLine(56, 1400, 4, 700, Color.Black); //right
 
 
             StartingSnakePieces(50, 100, 60, 100, 850, 100, 860, 100);
@@ -87,7 +83,6 @@ namespace Snake
         {
             moves++;
             Text = $"{moves}.lépés, sebesség:{speed}, headX1:{headX1}, headY1:{headY1}, headX2:{headX2}, headY2:{headY2}, hossz:{snakePieces1.LongCount()}";
-
             
             headX1 += dirX1 * SnakePiece.snakeSize;
             headY1 += dirY1 * SnakePiece.snakeSize;
@@ -95,19 +90,12 @@ namespace Snake
             headX2 += dirX2 * SnakePiece.snakeSize;
             headY2 += dirY2 * SnakePiece.snakeSize;
 
-            CheckingHiting(headX1, headY1, winner, winnerLabel, restartButton, snakePieces1);
-            CheckingHiting(headX2, headY2, winner, winnerLabel, restartButton, snakePieces2);
-
-            score1Label.Text = $"Score1: {score1}   Score2: {score2}";
+            CheckingHiting(headX1, headY1, winnerLabel, restartButton, snakePieces1);
+            CheckingHiting(headX2, headY2, winnerLabel, restartButton, snakePieces2);
 
             //last snake piece remove
-            //CutOffSnakePiece();
-            SnakePiece cutOff2 = snakePieces2[0];
-            Controls.Remove(cutOff2);
-            snakePieces2.Remove(cutOff2);
-            SnakePiece cutOff1 = snakePieces1[0];
-            Controls.Remove(cutOff1);
-            snakePieces1.Remove(cutOff1);
+            CutOffSnakePiece(snakePieces1);
+            CutOffSnakePiece(snakePieces2);
 
             //new snake piece add
             AddSnakePiece(headX1, headY1, snakePieces1);
@@ -165,12 +153,13 @@ namespace Snake
                 }
             }
 
+            //add posion or game end
             foreach (Poison poison in poisons)
             {
                 if (poison.Left == headX1 && poison.Top == headY1)
                 {
                     timer.Stop();
-                    winner = "player2";
+                    point2++;
                     winnerLabel.Text = "Player 2 is the winner.";
                     winnerLabel.Visible = true;
                     restartButton.Visible = true;
@@ -178,7 +167,7 @@ namespace Snake
                 else if (poison.Left == headX2 && poison.Top == headY2)
                 {
                     timer.Stop();
-                    winner = "player1";
+                    point1++;
                     winnerLabel.Text = "Player 1 is the winner.";
                     winnerLabel.Visible = true;
                     restartButton.Visible = true;
@@ -190,22 +179,14 @@ namespace Snake
 
             }
 
-            if (snakePieces1[snakePieces1.Count-1].Top == snakePieces2[snakePieces2.Count-1].Top && 
-                snakePieces1[snakePieces1.Count-1].Left == snakePieces2[snakePieces2.Count-1].Left)
-            {
-                timer.Stop();
-                winner = "draw";
-                winnerLabel.Text = "It's draw!!";
-                winnerLabel.Visible = true;
-                restartButton.Visible = true;
-            }
 
+            //check crushing - TODO - egybe a checkHitingel
             foreach (SnakePiece item in snakePieces1)
             {
                 if (headY2 == item.Top && headX2 == item.Left && item != snakePieces1[0])
                 {
                     timer.Stop();
-                    winner = "player1";
+                    point1++;
                     winnerLabel.Text = "Player 1 is the winner.";
                     winnerLabel.Visible = true;
                     restartButton.Visible = true;
@@ -217,12 +198,25 @@ namespace Snake
                 if (headY1 == item.Top && headX1 == item.Left && item != snakePieces2[0])
                 {
                     timer.Stop();
-                    winner = "player2";
+                    point2++;
                     winnerLabel.Text = "Player 2 is the winner.";
                     winnerLabel.Visible = true;
                     restartButton.Visible = true;
                 }
             }
+
+            if (snakePieces1[snakePieces1.Count - 1].Top == snakePieces2[snakePieces2.Count - 1].Top &&
+                snakePieces1[snakePieces1.Count - 1].Left == snakePieces2[snakePieces2.Count - 1].Left)
+            {
+                timer.Stop();
+                winnerLabel.Text = "It's draw!!";
+                winnerLabel.Visible = true;
+                restartButton.Visible = true;
+            }
+
+            score1Label.Text = $"Snake 1 length: {length1}   Snake 2 length: {length2}";
+            pointLabel.Text = $"Snake 1 points: {point1}   Snake 2 points: {point2}";
+
 
             //saving last position
             foreach (SnakePiece piece in snakePieces1)
@@ -258,6 +252,13 @@ namespace Snake
             snakeList.Add(newPiece);
         }
 
+        public void CutOffSnakePiece(List<SnakePiece> snakeList)
+        {
+            SnakePiece cutOff = snakeList[0];
+            Controls.Remove(cutOff);
+            snakeList.Remove(cutOff);
+        }
+
         public void AddNewSnakePiece(List<SnakePiece> snakeList, int lastX, int lastY)
         {
             List<SnakePiece> newsnakePieces = new List<SnakePiece>();
@@ -272,8 +273,8 @@ namespace Snake
                 newsnakePieces.Add(piece);
             }
 
-            if (snakeList == snakePieces1) { snakePieces1 = newsnakePieces; score1++; }
-            else { snakePieces2 = newsnakePieces; score2++; }
+            if (snakeList == snakePieces1) { snakePieces1 = newsnakePieces; length1++; }
+            else { snakePieces2 = newsnakePieces; length2++; }
         }
 
         public void DrawSnake(List<SnakePiece> snakeList)
@@ -281,31 +282,36 @@ namespace Snake
             foreach (SnakePiece piece in snakeList) { Controls.Add(piece); }
         }
 
-        public void CutOffSnakePiece(List<SnakePiece> snakeList)
+        public void DrawLine(int top, int left, int width, int height, Color color)
         {
-            SnakePiece cutOff = snakeList[0];
-            Controls.Remove(cutOff);
-            snakeList.Remove(cutOff);
+            Label line = new Label();
+            line.Top = top;
+            line.Left = left;
+            line.Width = width;
+            line.Height = height;
+            line.BackColor = color;
+            line.BorderStyle = BorderStyle.Fixed3D;
+            this.Controls.Add(line);
         }
 
-        static void CheckingHiting(int headX, int headY, string winner, Label winnerLabel, Button restartButton, List<SnakePiece> snakeList)
+        public void CheckingHiting(int headX, int headY, Label winnerLabel, Button restartButton, List<SnakePiece> snakeList)
         {
             foreach (SnakePiece item in snakeList)
             {
                 if ((item.Top == headY && item.Left == headX) ||
-                    headY < 0 || headY == screenHeight ||
+                    headY < 0 || headY == screenHeight + 60 ||
                     headX < 0 || headX == screenWidth) //TODO-screen size-hoz igazítás
                 {
                     timer.Stop();
-                    if (snakeList == snakePieces1) { winner = "player2"; winnerLabel.Text = "Player 2 is the winner."; }
-                    else { winner = "player1"; winnerLabel.Text = "Player 1 is the winner."; }
+                    if (snakeList == snakePieces1) { winnerLabel.Text = "Player 2 is the winner."; point2++; }
+                    else { winnerLabel.Text = "Player 1 is the winner."; point1++; }
                     winnerLabel.Visible = true;
                     restartButton.Visible = true;
                 }
             }
         }
 
-        static void StartingSnakePieces(int x11, int y11, int x12, int y12, int x21, int y21, int x22, int y22)
+        public void StartingSnakePieces(int x11, int y11, int x12, int y12, int x21, int y21, int x22, int y22)
         {
             //starting snake snakePieces1
             SnakePiece sp11 = new SnakePiece
@@ -338,7 +344,7 @@ namespace Snake
         public void ControlsRemove()
         {
             foreach (SnakePiece piece in snakePieces1)
-            {
+            { 
                 Controls.Remove(piece);
             }
 
@@ -357,6 +363,7 @@ namespace Snake
                 Controls.Remove(piece);
             }
         }
+
         private void startButton_Click(object sender, EventArgs e)
         {
             timer.Start();
@@ -378,13 +385,13 @@ namespace Snake
             headY1 = 100;
             dirX1 = 1;
             dirY1 = 0;
-            score1 = 0;
+            length1 = 0;
 
             headX2 = 860;
             headY2 = 100;
             dirX2 = -1;
             dirY2 = 0;
-            score2 = 0;
+            length2 = 0;
 
             StartingSnakePieces(50, 100, 60, 100, 850, 100, 860, 100);
 
@@ -393,6 +400,7 @@ namespace Snake
 
             timer.Start();
         }
+
     }
 }
 
