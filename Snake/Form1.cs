@@ -8,6 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+/* 1 v 2 player
+ * szintek
+ * jobb alma, snake
+ * nem 20, hanem 5 px-es mozgás
+ */
+
 namespace Snake
 {
     public partial class form1 : Form
@@ -19,15 +25,12 @@ namespace Snake
         int appleFrequent = 10;
         int poisonFrequent = 50;
 
-        static Timer timer = new Timer();
-        Random rnd = new Random();
-
         int moves;
         int level = 1;
 
         int dirX1 = 1;
         int dirY1 = 0;
-        int headX1 = 60;
+        int headX1 = 180;
         int headY1 = 100;
         int lastX1;
         int lastY1;
@@ -36,12 +39,15 @@ namespace Snake
 
         int dirX2 = -1;
         int dirY2 = 0;
-        int headX2 = 860;
+        int headX2 = 1260;
         int headY2 = 100;
         int lastX2;
         int lastY2;
         int length2;
         int point2;
+
+        Timer timer = new Timer();
+        Random rnd = new Random();
 
         static List<SnakePiece> snakePieces1 = new List<SnakePiece>();
         static List<SnakePiece> snakePieces2 = new List<SnakePiece>();
@@ -60,7 +66,7 @@ namespace Snake
             DrawLine(56, 1460, 4, 700, Color.Black); //right
 
 
-            StartingSnakePieces(50, 100, 60, 100, 850, 100, 860, 100);
+            StartingSnakePieces(160, 100, 180, 100, 1280, 100, 1260, 100);
 
             //timer settings
             timer.Interval = speed;
@@ -95,8 +101,8 @@ namespace Snake
             CheckingHiting(headX2, headY2, winnerLabel, restartButton, snakePieces2, point1, "player 1");
 
             //last snake piece remove
-            CutOffSnakePiece(snakePieces1);
             CutOffSnakePiece(snakePieces2);
+            CutOffSnakePiece(snakePieces1);
 
             //new snake piece add
             AddSnakePiece(headX1, headY1, snakePieces1);
@@ -387,19 +393,19 @@ namespace Snake
             poisons.Clear();
 
 
-            headX1 = 60;
+            headX1 = 180;
             headY1 = 100;
             dirX1 = 1;
             dirY1 = 0;
             length1 = 0;
 
-            headX2 = 860;
+            headX2 = 1260;
             headY2 = 100;
             dirX2 = -1;
             dirY2 = 0;
             length2 = 0;
 
-            StartingSnakePieces(50, 100, 60, 100, 850, 100, 860, 100);
+            StartingSnakePieces(160, 100, 180, 100, 1280, 100, 1260, 100);
 
             winnerLabel.Visible = false;
             restartButton.Visible = false;
