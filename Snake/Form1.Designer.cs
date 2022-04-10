@@ -37,7 +37,7 @@
             // 
             // startButton
             // 
-            this.startButton.Location = new System.Drawing.Point(729, 363);
+            this.startButton.Location = new System.Drawing.Point(960, 463);
             this.startButton.Margin = new System.Windows.Forms.Padding(4);
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(176, 65);
@@ -48,7 +48,7 @@
             // 
             // restartButton
             // 
-            this.restartButton.Location = new System.Drawing.Point(729, 363);
+            this.restartButton.Location = new System.Drawing.Point(960, 463);
             this.restartButton.Margin = new System.Windows.Forms.Padding(4);
             this.restartButton.Name = "restartButton";
             this.restartButton.Size = new System.Drawing.Size(176, 65);
@@ -72,7 +72,7 @@
             // 
             this.winnerLabel.AutoSize = true;
             this.winnerLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.winnerLabel.Location = new System.Drawing.Point(729, 276);
+            this.winnerLabel.Location = new System.Drawing.Point(871, 363);
             this.winnerLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.winnerLabel.Name = "winnerLabel";
             this.winnerLabel.Size = new System.Drawing.Size(161, 52);
