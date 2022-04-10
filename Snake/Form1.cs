@@ -8,6 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+/* 1 v 2 player
+ * szintek
+ * jobb alma, snake
+ * nem 20, hanem 5 px-es mozgás
+ */
+
 namespace Snake
 {
     public partial class form1 : Form
@@ -18,9 +24,6 @@ namespace Snake
         int speed = 300;
         int appleFrequent = 10;
         int poisonFrequent = 50;
-
-        static Timer timer = new Timer();
-        Random rnd = new Random();
 
         int moves;
         int level = 1;
@@ -42,6 +45,9 @@ namespace Snake
         int lastY2;
         int length2;
         int point2;
+
+        Timer timer = new Timer();
+        Random rnd = new Random();
 
         static List<SnakePiece> snakePieces1 = new List<SnakePiece>();
         static List<SnakePiece> snakePieces2 = new List<SnakePiece>();
