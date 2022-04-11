@@ -33,6 +33,7 @@
             this.score1Label = new System.Windows.Forms.Label();
             this.winnerLabel = new System.Windows.Forms.Label();
             this.pointLabel = new System.Windows.Forms.Label();
+            this.nextLevelButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // startButton
@@ -89,11 +90,23 @@
             this.pointLabel.Size = new System.Drawing.Size(0, 42);
             this.pointLabel.TabIndex = 5;
             // 
+            // nextLevelButton
+            // 
+            this.nextLevelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.nextLevelButton.Location = new System.Drawing.Point(960, 463);
+            this.nextLevelButton.Name = "nextLevelButton";
+            this.nextLevelButton.Size = new System.Drawing.Size(176, 65);
+            this.nextLevelButton.TabIndex = 6;
+            this.nextLevelButton.Text = "Next level";
+            this.nextLevelButton.UseVisualStyleBackColor = true;
+            this.nextLevelButton.Visible = false;
+            // 
             // form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1757, 799);
+            this.Controls.Add(this.nextLevelButton);
             this.Controls.Add(this.pointLabel);
             this.Controls.Add(this.winnerLabel);
             this.Controls.Add(this.score1Label);
@@ -116,6 +129,7 @@
         private System.Windows.Forms.Label score1Label;
         private System.Windows.Forms.Label winnerLabel;
         private System.Windows.Forms.Label pointLabel;
+        private System.Windows.Forms.Button nextLevelButton;
     }
 }
 

@@ -12,6 +12,7 @@ using System.Windows.Forms;
  * szintek
  * jobb alma, snake
  * nem 20, hanem 5 px-es mozgás
+ * random dolgot csináló kocka(minusz egy hossz, gyorsaság, plusz hossz, másik lefagy)
  */
 
 namespace Snake
@@ -73,10 +74,7 @@ namespace Snake
             timer.Tick += Timer_Tick;
 
             KeyDown += Form1_KeyDown;
-
         }
-
-
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -223,11 +221,30 @@ namespace Snake
                 }
             }
 
-
-
-            score1Label.Text = $"Snake 1 length: {length1}   Snake 2 length: {length2}";
+            //writing labels
+            score1Label.Text = $"Snake 1 length: {length1 + 2}   Snake 2 length: {length2 + 2}";
             pointLabel.Text = $"Snake 1 points: {point1}   Snake 2 points: {point2}";
 
+            DrawLevels(level);
+
+            if (length1 == 1)
+            {
+                timer.Stop();
+                point1++;
+                level++;
+                winnerLabel.Text = "Player 1 is the winner.";
+                winnerLabel.Visible = true;
+                nextLevelButton.Visible = true;
+            }
+            else if (length2 == 1)
+            {
+                timer.Stop();
+                point2++;
+                level++;
+                winnerLabel.Text = "Player 2 is the winner.";
+                winnerLabel.Visible = true;
+                nextLevelButton.Visible = true;
+            }
 
             //saving last position
             foreach (SnakePiece piece in snakePieces1)
@@ -372,6 +389,15 @@ namespace Snake
             foreach (Poison piece in poisons)
             {
                 Controls.Remove(piece);
+            }
+        }
+
+        public void DrawLevels(int level)
+        {
+            if (level == 1)
+            {
+                DrawLine(200, 200, 1120, 20, Color.Black); 
+                DrawLine(600, 200, 1120, 20, Color.Black); 
             }
         }
 
