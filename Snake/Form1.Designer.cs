@@ -92,7 +92,7 @@
             // 
             // nextLevelButton
             // 
-            this.nextLevelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.nextLevelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.nextLevelButton.Location = new System.Drawing.Point(960, 463);
             this.nextLevelButton.Name = "nextLevelButton";
             this.nextLevelButton.Size = new System.Drawing.Size(176, 65);
@@ -100,6 +100,7 @@
             this.nextLevelButton.Text = "Next level";
             this.nextLevelButton.UseVisualStyleBackColor = true;
             this.nextLevelButton.Visible = false;
+            this.nextLevelButton.Click += new System.EventHandler(this.nextLevelButton_Click);
             // 
             // form1
             // 
