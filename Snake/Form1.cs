@@ -218,6 +218,7 @@ namespace Snake
                     winnerLabel.Text = "You lost. Your score: " + (length1 + 2);
                     winnerLabel.Visible = true;
                     restartButton.Visible = true;
+                    saveScoreButton.Visible = true; 
                 }
                 else
                 {
@@ -657,6 +658,7 @@ namespace Snake
                         winnerLabel.Text = "You lost. Your score: " + (length1 + 2);
                         winnerLabel.Visible = true;
                         restartButton.Visible = true;
+                        saveScoreButton.Visible = true;
                     }
                 }
             }
@@ -790,6 +792,7 @@ namespace Snake
 
             winnerLabel.Visible = false;
             restartButton.Visible = false;
+            saveScoreButton.Visible = false;
 
             timer.Start();
         }
@@ -831,6 +834,10 @@ namespace Snake
             timer.Start();
         }
 
+        private void saveScoreButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 

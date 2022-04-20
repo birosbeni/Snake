@@ -37,6 +37,7 @@
             this.playerList = new System.Windows.Forms.ComboBox();
             this.playerLabel = new System.Windows.Forms.Label();
             this.errorLabel = new System.Windows.Forms.Label();
+            this.saveScoreButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // startButton
@@ -135,11 +136,24 @@
             this.errorLabel.Text = "label1";
             this.errorLabel.Visible = false;
             // 
+            // saveScoreButton
+            // 
+            this.saveScoreButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.saveScoreButton.Location = new System.Drawing.Point(960, 581);
+            this.saveScoreButton.Name = "saveScoreButton";
+            this.saveScoreButton.Size = new System.Drawing.Size(176, 60);
+            this.saveScoreButton.TabIndex = 10;
+            this.saveScoreButton.Text = "Save score";
+            this.saveScoreButton.UseVisualStyleBackColor = true;
+            this.saveScoreButton.Visible = false;
+            this.saveScoreButton.Click += new System.EventHandler(this.saveScoreButton_Click);
+            // 
             // form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1757, 799);
+            this.Controls.Add(this.saveScoreButton);
             this.Controls.Add(this.errorLabel);
             this.Controls.Add(this.playerLabel);
             this.Controls.Add(this.playerList);
@@ -170,6 +184,7 @@
         private System.Windows.Forms.ComboBox playerList;
         private System.Windows.Forms.Label playerLabel;
         private System.Windows.Forms.Label errorLabel;
+        private System.Windows.Forms.Button saveScoreButton;
     }
 }
 
