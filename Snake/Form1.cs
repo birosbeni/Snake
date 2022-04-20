@@ -27,6 +27,7 @@ namespace Snake
         int supriseFrequent = 30;
         int nextLevelLength = 5;
 
+
         int playerCount = 0;
 
 
