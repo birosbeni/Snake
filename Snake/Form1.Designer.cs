@@ -34,6 +34,9 @@
             this.winnerLabel = new System.Windows.Forms.Label();
             this.pointLabel = new System.Windows.Forms.Label();
             this.nextLevelButton = new System.Windows.Forms.Button();
+            this.playerList = new System.Windows.Forms.ComboBox();
+            this.playerLabel = new System.Windows.Forms.Label();
+            this.errorLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // startButton
@@ -102,11 +105,44 @@
             this.nextLevelButton.Visible = false;
             this.nextLevelButton.Click += new System.EventHandler(this.nextLevelButton_Click);
             // 
+            // playerList
+            // 
+            this.playerList.FormattingEnabled = true;
+            this.playerList.Items.AddRange(new object[] {
+            "1",
+            "2"});
+            this.playerList.Location = new System.Drawing.Point(960, 380);
+            this.playerList.Name = "playerList";
+            this.playerList.Size = new System.Drawing.Size(121, 24);
+            this.playerList.TabIndex = 7;
+            // 
+            // playerLabel
+            // 
+            this.playerLabel.AutoSize = true;
+            this.playerLabel.Location = new System.Drawing.Point(960, 336);
+            this.playerLabel.Name = "playerLabel";
+            this.playerLabel.Size = new System.Drawing.Size(121, 16);
+            this.playerLabel.TabIndex = 8;
+            this.playerLabel.Text = "How many players:";
+            // 
+            // errorLabel
+            // 
+            this.errorLabel.AutoSize = true;
+            this.errorLabel.Location = new System.Drawing.Point(963, 570);
+            this.errorLabel.Name = "errorLabel";
+            this.errorLabel.Size = new System.Drawing.Size(44, 16);
+            this.errorLabel.TabIndex = 9;
+            this.errorLabel.Text = "label1";
+            this.errorLabel.Visible = false;
+            // 
             // form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1757, 799);
+            this.Controls.Add(this.errorLabel);
+            this.Controls.Add(this.playerLabel);
+            this.Controls.Add(this.playerList);
             this.Controls.Add(this.nextLevelButton);
             this.Controls.Add(this.pointLabel);
             this.Controls.Add(this.winnerLabel);
@@ -131,6 +167,9 @@
         private System.Windows.Forms.Label winnerLabel;
         private System.Windows.Forms.Label pointLabel;
         private System.Windows.Forms.Button nextLevelButton;
+        private System.Windows.Forms.ComboBox playerList;
+        private System.Windows.Forms.Label playerLabel;
+        private System.Windows.Forms.Label errorLabel;
     }
 }
 
