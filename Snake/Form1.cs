@@ -25,7 +25,7 @@ namespace Snake
         int appleFrequent = 10;
         int poisonFrequent = 50;
         int supriseFrequent = 2;
-        int nextLevelLength = 5;
+        int nextLevelLength = 1;
 
         int moves;
         int level = 1;
