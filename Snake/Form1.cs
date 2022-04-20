@@ -23,10 +23,13 @@ namespace Snake
         int speed = 300;
         int appleFrequent = 10;
         int poisonFrequent = 50;
+
         int supriseFrequent = 30;
         int nextLevelLength = 5;
 
         int playerCount = 0;
+
+
 
         int moves;
         int level = 1;
@@ -324,12 +327,12 @@ namespace Snake
             {
                 if (length1 == nextLevelLength)
                 {
-                    Winner1();
+                    Winner1(true);
                 }
                 if (length2 == nextLevelLength)
-            {
-                Winner2();
-            }
+                {
+                    Winner2(true);
+                }
             }
 
             //drawing levels
@@ -350,15 +353,15 @@ namespace Snake
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.W && dirY1 != 1) { dirX1 = 0; dirY1 = -1; }
-            if (e.KeyCode == Keys.S && dirY1 != -1) { dirX1 = 0; dirY1 = 1; }
-            if (e.KeyCode == Keys.A && dirX1 != 1) { dirX1 = -1; dirY1 = 0; }
-            if (e.KeyCode == Keys.D && dirX1 != -1) { dirX1 = 1; dirY1 = 0; }
+            if (e.KeyCode == Keys.Up && dirY1 != 1) { dirX1 = 0; dirY1 = -1; }
+            if (e.KeyCode == Keys.Down && dirY1 != -1) { dirX1 = 0; dirY1 = 1; }
+            if (e.KeyCode == Keys.Left && dirX1 != 1) { dirX1 = -1; dirY1 = 0; }
+            if (e.KeyCode == Keys.Right && dirX1 != -1) { dirX1 = 1; dirY1 = 0; }
 
-            if (e.KeyCode == Keys.Up && dirY2 != 1) { dirX2 = 0; dirY2 = -1; }
-            if (e.KeyCode == Keys.Down && dirY2 != -1) { dirX2 = 0; dirY2 = 1; }
-            if (e.KeyCode == Keys.Left && dirX2 != 1) { dirX2 = -1; dirY2 = 0; }
-            if (e.KeyCode == Keys.Right && dirX2 != -1) { dirX2 = 1; dirY2 = 0; }
+            if (e.KeyCode == Keys.W && dirY2 != 1) { dirX2 = 0; dirY2 = -1; }
+            if (e.KeyCode == Keys.S && dirY2 != -1) { dirX2 = 0; dirY2 = 1; }
+            if (e.KeyCode == Keys.A && dirX2 != 1) { dirX2 = -1; dirY2 = 0; }
+            if (e.KeyCode == Keys.D && dirX2 != -1) { dirX2 = 1; dirY2 = 0; }
         }//TODo -if (e.KeyCode == Keys.W && dirY1 != 1 && snakePieces1[0].Top - 20 != snakePieces1[1].Top && snakePieces1[0].Left != snakePieces1[1].Left) { dirX1 = 0; dirY1 = -1;  
 
         //snake methods
@@ -631,7 +634,7 @@ namespace Snake
                         ((headY == 200 || headY == 600) && headX >= 200 && headX < 1320) && playerCount == 1) //TODO-screen size-hoz igazítás
                     {
                         timer.Stop();
-                        winnerLabel.Text = "You lost";
+                        winnerLabel.Text = "You lost. Your score: " + (length1+2);
                         winnerLabel.Visible = true;
                         restartButton.Visible = true;
                     }
@@ -688,22 +691,24 @@ namespace Snake
 
 
         //winners
-        public void Winner1()
+        public void Winner1(bool nextLevel = false)
         {
             timer.Stop();
             point1++;
             winnerLabel.Text = "Player 1 is the winner.";
             winnerLabel.Visible = true;
-            restartButton.Visible = true;
+            if (nextLevel) { nextLevelButton.Visible = true; }
+            else { restartButton.Visible = true; }
         }
 
-        public void Winner2()
+        public void Winner2(bool nextLevel = false)
         {
             timer.Stop();
             point2++;
             winnerLabel.Text = "Player 2 is the winner.";
             winnerLabel.Visible = true;
-            restartButton.Visible = true;
+            if (nextLevel) { nextLevelButton.Visible = true; }
+            else { restartButton.Visible = true; }
         }
 
 
