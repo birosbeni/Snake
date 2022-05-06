@@ -20,11 +20,12 @@ namespace Snake
             context.SaveChanges();
         }
 
-        public static void AddScore(int id, int score, DateTime date)
+        public static void AddScore(int id, int playerId, int score, DateTime date)
         {
             SnakeEntities1 context = new SnakeEntities1();
             Score s = new Score();
-            s.player_id = id;
+            s.id = id;
+            s.player_id = playerId;
             s.score = score;
             s.date = date;
 

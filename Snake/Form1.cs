@@ -25,9 +25,9 @@ namespace Snake
         int poisonFrequent = 50;
         int supriseFrequent = 30;
 
-        int maxApples = 30;
-        int maxPoisons = 30;
-        int maxSuprises = 30;
+        int maxApples = 5;
+        int maxPoisons = 3;
+        int maxSuprises = 3;
 
 
         int nextLevelLength = 3;
@@ -53,6 +53,7 @@ namespace Snake
         int point1;
         bool freez1 = false;
         int freez1count;
+        Player player1;
 
         int dirX2 = -1;
         int dirY2 = 0;
@@ -472,6 +473,7 @@ namespace Snake
             this.Controls.Add(line);
         }
 
+        //put out
         public void DrawLevels(int level)
         {
             if (level == 2)
@@ -487,7 +489,7 @@ namespace Snake
         }
 
 
-        //new foods
+        //new foods  put out
         public void NewApple(int level)
         {
             if (level == 1)
@@ -638,6 +640,7 @@ namespace Snake
             }
             if (level == 2)
             {
+                bool saveScore = false;
                 foreach (SnakePiece item in snakeList)
                 {
                     if (((item.Top == headY && item.Left == headX) ||
@@ -663,7 +666,22 @@ namespace Snake
                         winnerLabel.Text = "You lost. Your score: " + (length1 + 2);
                         winnerLabel.Visible = true;
                         restartButton.Visible = true;
+                        saveScore = true;
                     }
+                }
+                if (saveScore)
+                {
+                    int position = 1;
+                    int lastId = 0;
+                    List<Score> list = dbManager.GetScores();
+                    foreach (Score score in list) 
+                    { 
+                        if (score.id > lastId) { lastId = score.id; } 
+                        if (length1+2 <= score.score) { position++; }
+                    }
+                    dbManager.AddScore(++lastId, player1.id, length1+2, DateTime.Now);
+                    positionLabel.Text = "Your position is: " + position.ToString();
+                    positionLabel.Visible = true;
                 }
             }
             if (level >= 3)
@@ -738,8 +756,15 @@ namespace Snake
             else { restartButton.Visible = true; }
         }
 
+        public void SetDbLabel(bool vis, Color color, string text = "")
+        {
+            dbLabel.Text = text;
+            dbLabel.ForeColor = color;
+            dbLabel.Visible = vis;
+        }
 
-        //buttons
+
+        //click events
         private void startButton_Click(object sender, EventArgs e)
         {
             try
@@ -768,13 +793,14 @@ namespace Snake
                     playerList.Visible = false;
                     startButton.Visible = false;
                     newAccountButton.Visible = false;
-                    signInErrorLabel.Visible = false;
+                    dbLabel.Visible = false;
                     timer.Start();
                     inGame = true;
                 }
                 if (playerCount == 1) { level = 2; }
                 StartingSnakePieces(160, 100, 180, 100, 1280, 100, 1260, 100, playerCount);
-                setLoginUnVisible(true, true);
+                setLoginUnVisible();
+                signInButton.Visible = false;
             }
         }
 
@@ -851,8 +877,6 @@ namespace Snake
             timer.Start();
         }
 
-
-        //users
         private void signInButton_Click(object sender, EventArgs e)
         {
             List<Player> list = dbManager.GetPlayers();
@@ -861,8 +885,8 @@ namespace Snake
             string un = "";
             try
             {
-                n = signInNameTextbox.Text;
-                un = signInUsernameTextbox.Text;
+                n = nameTextbox.Text;
+                un = usernameTextbox.Text;
             }
             catch (Exception)
             {
@@ -873,17 +897,14 @@ namespace Snake
             {
                 if (item.name == n && item.username == un)
                 {
-                    name = item.name;
-                    userName = item.username;
+                    player1 = item;
                     signedIn = true;
-                    signInErrorLabel.Text = "You are signed in";
-                    signInErrorLabel.Visible = true;
+                    SetDbLabel(true, Color.Black, "You are signed in");
                     break;
                 }
                 else
                 {
-                    signInErrorLabel.Text = "Nem létező felhasználó";
-                    signInErrorLabel.Visible = true;
+                    SetDbLabel(true, Color.Red, "Nem létező felhasználó");
                 }
             }
         }
@@ -895,87 +916,71 @@ namespace Snake
             string un = "";
             try
             {
-                n = registerNameTextbox.Text;
-                un = registerUsernameTextbox.Text;
+                n = nameTextbox.Text;
+                un = usernameTextbox.Text;
             }
             catch (Exception)
             {
                 Console.WriteLine("hiba");
             }
 
+            int lastId = 0;
+            foreach (Player player in list) { if (player.id > lastId) { lastId = player.id; } }
+
+            bool freeName = true;
+            bool freeUsername = true;
             foreach (Player player in list)
             {
                 if (player.name == n)
                 {
-                    signInErrorLabel.Text = "The name is taken.";
-                    signInErrorLabel.Visible= true;
-                    signInErrorLabel.ForeColor = Color.Red;
+                    SetDbLabel(true, Color.Red, "The name is taken.");
+                    freeName = false;
                 }
-                else if (player.username == un)
+                if (player.username == un)
                 {
-                    signInErrorLabel.Text = "The username is taken.";
-                    signInErrorLabel.Visible = true;
-                    signInErrorLabel.ForeColor = Color.Red;
+                    SetDbLabel(true, Color.Red, "The username is taken.");
+                    freeUsername = false;
                 }
-                else
-                {
-                    dbManager.AddPlayer(2, n, un);
-                    setLoginUnVisible(false, true);
-                    setLoginVisible(true, false);
-                }
+            }
+            if (freeUsername && freeName)
+            {
+                dbManager.AddPlayer(++lastId, n, un);
+                signInButton.Visible = true;
+                registerButton.Visible = false;
+                SetDbLabel(true, Color.Black, "Succesfull registration. Sign in.");
             }
         }
 
         private void newAccountButton_Click(object sender, EventArgs e)
         {
-            setLoginUnVisible(true, false);
-            setLoginVisible(false, true);
+            signInButton.Visible = false;
+            registerButton.Visible = true;
         }
 
-        public void setLoginUnVisible(bool signIn, bool register)
+
+
+
+
+
+
+        //put out
+        public void setLoginUnVisible()
         {
-            if (signIn)
-            {
-                signInNameLabel.Visible = false;
-                signInNameTextbox.Visible = false;
-                signInUsernameLabel.Visible = false;
-                signInUsernameTextbox.Visible=false;
-                signInButton.Visible = false;
-            }
-
-            if (register)
-            {
-                registerNameLabel.Visible = false;
-                registerNameTextbox.Visible = false;
-                registerUsernameLabel.Visible = false;
-                registerUsernameTextbox.Visible = false;
-                registerButton.Visible = false;
-            }
-
+                nameLabel.Visible = false;
+                nameTextbox.Visible = false;
+                usernameLabel.Visible = false;
+                usernameTextbox.Visible = false;
         }
 
-        public void setLoginVisible(bool signIn, bool register)
-        {
-            if (signIn)
-            {
-                signInNameLabel.Visible = true;
-                signInNameTextbox.Visible = true;
-                signInUsernameLabel.Visible = true;
-                signInUsernameTextbox.Visible = true;
-                signInButton.Visible = true;
-            }
-
-            if (register)
-            {
-                registerNameLabel.Visible = true;
-                registerNameTextbox.Visible = true;
-                registerUsernameLabel.Visible = true;
-                registerUsernameTextbox.Visible = true;
-                registerButton.Visible = true;
-            }
-
-        }
-
+        //delete
+        //public void setLoginVisible()
+        //{
+        //        nameLabel.Visible = true;
+        //        nameTextbox.Visible = true;
+        //        usernameLabel.Visible = true;
+        //        usernameTextbox.Visible = true;
+        //        signInButton.Visible = true;
+        //}
     }
 }
 

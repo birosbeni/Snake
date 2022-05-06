@@ -37,19 +37,15 @@
             this.playerList = new System.Windows.Forms.ComboBox();
             this.playerLabel = new System.Windows.Forms.Label();
             this.errorLabel = new System.Windows.Forms.Label();
-            this.signInNameTextbox = new System.Windows.Forms.TextBox();
+            this.nameTextbox = new System.Windows.Forms.TextBox();
             this.signInButton = new System.Windows.Forms.Button();
-            this.signInUsernameTextbox = new System.Windows.Forms.TextBox();
-            this.signInNameLabel = new System.Windows.Forms.Label();
-            this.signInUsernameLabel = new System.Windows.Forms.Label();
+            this.usernameTextbox = new System.Windows.Forms.TextBox();
+            this.nameLabel = new System.Windows.Forms.Label();
+            this.usernameLabel = new System.Windows.Forms.Label();
             this.registerButton = new System.Windows.Forms.Button();
-            this.registerNameTextbox = new System.Windows.Forms.TextBox();
-            this.registerUsernameTextbox = new System.Windows.Forms.TextBox();
-            this.registerNameLabel = new System.Windows.Forms.Label();
-            this.registerUsernameLabel = new System.Windows.Forms.Label();
-            this.signInErrorLabel = new System.Windows.Forms.Label();
-            this.registerErrorLabel = new System.Windows.Forms.Label();
+            this.dbLabel = new System.Windows.Forms.Label();
             this.newAccountButton = new System.Windows.Forms.Button();
+            this.positionLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // startButton
@@ -148,12 +144,12 @@
             this.errorLabel.Text = "label1";
             this.errorLabel.Visible = false;
             // 
-            // signInNameTextbox
+            // nameTextbox
             // 
-            this.signInNameTextbox.Location = new System.Drawing.Point(262, 300);
-            this.signInNameTextbox.Name = "signInNameTextbox";
-            this.signInNameTextbox.Size = new System.Drawing.Size(122, 22);
-            this.signInNameTextbox.TabIndex = 11;
+            this.nameTextbox.Location = new System.Drawing.Point(262, 300);
+            this.nameTextbox.Name = "nameTextbox";
+            this.nameTextbox.Size = new System.Drawing.Size(122, 22);
+            this.nameTextbox.TabIndex = 11;
             // 
             // signInButton
             // 
@@ -165,32 +161,32 @@
             this.signInButton.UseVisualStyleBackColor = true;
             this.signInButton.Click += new System.EventHandler(this.signInButton_Click);
             // 
-            // signInUsernameTextbox
+            // usernameTextbox
             // 
-            this.signInUsernameTextbox.Location = new System.Drawing.Point(262, 404);
-            this.signInUsernameTextbox.Name = "signInUsernameTextbox";
-            this.signInUsernameTextbox.Size = new System.Drawing.Size(122, 22);
-            this.signInUsernameTextbox.TabIndex = 13;
+            this.usernameTextbox.Location = new System.Drawing.Point(262, 404);
+            this.usernameTextbox.Name = "usernameTextbox";
+            this.usernameTextbox.Size = new System.Drawing.Size(122, 22);
+            this.usernameTextbox.TabIndex = 13;
             // 
-            // signInNameLabel
+            // nameLabel
             // 
-            this.signInNameLabel.AutoSize = true;
-            this.signInNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.signInNameLabel.Location = new System.Drawing.Point(263, 252);
-            this.signInNameLabel.Name = "signInNameLabel";
-            this.signInNameLabel.Size = new System.Drawing.Size(70, 25);
-            this.signInNameLabel.TabIndex = 14;
-            this.signInNameLabel.Text = "Name:";
+            this.nameLabel.AutoSize = true;
+            this.nameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.nameLabel.Location = new System.Drawing.Point(263, 252);
+            this.nameLabel.Name = "nameLabel";
+            this.nameLabel.Size = new System.Drawing.Size(70, 25);
+            this.nameLabel.TabIndex = 14;
+            this.nameLabel.Text = "Name:";
             // 
-            // signInUsernameLabel
+            // usernameLabel
             // 
-            this.signInUsernameLabel.AutoSize = true;
-            this.signInUsernameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.signInUsernameLabel.Location = new System.Drawing.Point(257, 363);
-            this.signInUsernameLabel.Name = "signInUsernameLabel";
-            this.signInUsernameLabel.Size = new System.Drawing.Size(108, 25);
-            this.signInUsernameLabel.TabIndex = 15;
-            this.signInUsernameLabel.Text = "Username:";
+            this.usernameLabel.AutoSize = true;
+            this.usernameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.usernameLabel.Location = new System.Drawing.Point(257, 363);
+            this.usernameLabel.Name = "usernameLabel";
+            this.usernameLabel.Size = new System.Drawing.Size(108, 25);
+            this.usernameLabel.TabIndex = 15;
+            this.usernameLabel.Text = "Username:";
             // 
             // registerButton
             // 
@@ -203,63 +199,15 @@
             this.registerButton.Visible = false;
             this.registerButton.Click += new System.EventHandler(this.registerButton_Click);
             // 
-            // registerNameTextbox
+            // dbLabel
             // 
-            this.registerNameTextbox.Location = new System.Drawing.Point(262, 300);
-            this.registerNameTextbox.Name = "registerNameTextbox";
-            this.registerNameTextbox.Size = new System.Drawing.Size(122, 22);
-            this.registerNameTextbox.TabIndex = 17;
-            this.registerNameTextbox.Visible = false;
-            // 
-            // registerUsernameTextbox
-            // 
-            this.registerUsernameTextbox.Location = new System.Drawing.Point(262, 404);
-            this.registerUsernameTextbox.Name = "registerUsernameTextbox";
-            this.registerUsernameTextbox.Size = new System.Drawing.Size(122, 22);
-            this.registerUsernameTextbox.TabIndex = 18;
-            this.registerUsernameTextbox.Visible = false;
-            // 
-            // registerNameLabel
-            // 
-            this.registerNameLabel.AutoSize = true;
-            this.registerNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.registerNameLabel.Location = new System.Drawing.Point(263, 252);
-            this.registerNameLabel.Name = "registerNameLabel";
-            this.registerNameLabel.Size = new System.Drawing.Size(70, 25);
-            this.registerNameLabel.TabIndex = 19;
-            this.registerNameLabel.Text = "Name:";
-            this.registerNameLabel.Visible = false;
-            // 
-            // registerUsernameLabel
-            // 
-            this.registerUsernameLabel.AutoSize = true;
-            this.registerUsernameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.registerUsernameLabel.Location = new System.Drawing.Point(257, 363);
-            this.registerUsernameLabel.Name = "registerUsernameLabel";
-            this.registerUsernameLabel.Size = new System.Drawing.Size(108, 25);
-            this.registerUsernameLabel.TabIndex = 20;
-            this.registerUsernameLabel.Text = "Username:";
-            this.registerUsernameLabel.Visible = false;
-            // 
-            // signInErrorLabel
-            // 
-            this.signInErrorLabel.AutoSize = true;
-            this.signInErrorLabel.Location = new System.Drawing.Point(262, 532);
-            this.signInErrorLabel.Name = "signInErrorLabel";
-            this.signInErrorLabel.Size = new System.Drawing.Size(44, 16);
-            this.signInErrorLabel.TabIndex = 21;
-            this.signInErrorLabel.Text = "label1";
-            this.signInErrorLabel.Visible = false;
-            // 
-            // registerErrorLabel
-            // 
-            this.registerErrorLabel.AutoSize = true;
-            this.registerErrorLabel.Location = new System.Drawing.Point(262, 532);
-            this.registerErrorLabel.Name = "registerErrorLabel";
-            this.registerErrorLabel.Size = new System.Drawing.Size(44, 16);
-            this.registerErrorLabel.TabIndex = 22;
-            this.registerErrorLabel.Text = "label2";
-            this.registerErrorLabel.Visible = false;
+            this.dbLabel.AutoSize = true;
+            this.dbLabel.Location = new System.Drawing.Point(262, 532);
+            this.dbLabel.Name = "dbLabel";
+            this.dbLabel.Size = new System.Drawing.Size(44, 16);
+            this.dbLabel.TabIndex = 21;
+            this.dbLabel.Text = "label1";
+            this.dbLabel.Visible = false;
             // 
             // newAccountButton
             // 
@@ -271,24 +219,30 @@
             this.newAccountButton.UseVisualStyleBackColor = true;
             this.newAccountButton.Click += new System.EventHandler(this.newAccountButton_Click);
             // 
+            // positionLabel
+            // 
+            this.positionLabel.AutoSize = true;
+            this.positionLabel.Location = new System.Drawing.Point(960, 571);
+            this.positionLabel.Name = "positionLabel";
+            this.positionLabel.Size = new System.Drawing.Size(44, 16);
+            this.positionLabel.TabIndex = 24;
+            this.positionLabel.Text = "label1";
+            this.positionLabel.Visible = false;
+            // 
             // form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1803, 1055);
+            this.Controls.Add(this.positionLabel);
             this.Controls.Add(this.newAccountButton);
-            this.Controls.Add(this.registerErrorLabel);
-            this.Controls.Add(this.signInErrorLabel);
-            this.Controls.Add(this.registerUsernameLabel);
-            this.Controls.Add(this.registerNameLabel);
-            this.Controls.Add(this.registerUsernameTextbox);
-            this.Controls.Add(this.registerNameTextbox);
+            this.Controls.Add(this.dbLabel);
             this.Controls.Add(this.registerButton);
-            this.Controls.Add(this.signInUsernameLabel);
-            this.Controls.Add(this.signInNameLabel);
-            this.Controls.Add(this.signInUsernameTextbox);
+            this.Controls.Add(this.usernameLabel);
+            this.Controls.Add(this.nameLabel);
+            this.Controls.Add(this.usernameTextbox);
             this.Controls.Add(this.signInButton);
-            this.Controls.Add(this.signInNameTextbox);
+            this.Controls.Add(this.nameTextbox);
             this.Controls.Add(this.errorLabel);
             this.Controls.Add(this.playerLabel);
             this.Controls.Add(this.playerList);
@@ -319,19 +273,15 @@
         private System.Windows.Forms.ComboBox playerList;
         private System.Windows.Forms.Label playerLabel;
         private System.Windows.Forms.Label errorLabel;
-        private System.Windows.Forms.TextBox signInNameTextbox;
+        private System.Windows.Forms.TextBox nameTextbox;
         private System.Windows.Forms.Button signInButton;
-        private System.Windows.Forms.TextBox signInUsernameTextbox;
-        private System.Windows.Forms.Label signInNameLabel;
-        private System.Windows.Forms.Label signInUsernameLabel;
+        private System.Windows.Forms.TextBox usernameTextbox;
+        private System.Windows.Forms.Label nameLabel;
+        private System.Windows.Forms.Label usernameLabel;
         private System.Windows.Forms.Button registerButton;
-        private System.Windows.Forms.TextBox registerNameTextbox;
-        private System.Windows.Forms.TextBox registerUsernameTextbox;
-        private System.Windows.Forms.Label registerNameLabel;
-        private System.Windows.Forms.Label registerUsernameLabel;
-        private System.Windows.Forms.Label signInErrorLabel;
-        private System.Windows.Forms.Label registerErrorLabel;
+        private System.Windows.Forms.Label dbLabel;
         private System.Windows.Forms.Button newAccountButton;
+        private System.Windows.Forms.Label positionLabel;
     }
 }
 
