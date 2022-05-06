@@ -8,16 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-/* adatbázis
- * jobb alma
- * random dolgot csináló kocka(minusz egy hossz, gyorsaság, plusz hossz, lefagy)
- */
-
 namespace Snake
 {
     public partial class form1 : Form
     {
-        //screen sizes(must be divisibly by SnakePiece.snakeSize)
         public static int screenWidth = 1400;
         public static int screenHeight = 700;
         int speed = 300;
@@ -29,13 +23,9 @@ namespace Snake
         int maxPoisons = 3;
         int maxSuprises = 3;
 
-
         int nextLevelLength = 3;
 
-        int playerCount = 0;
-
-        string name;
-        string userName;
+        int playerCount;
 
         bool signedIn = false;
         bool inGame = false;
@@ -81,10 +71,10 @@ namespace Snake
             InitializeComponent();
 
             //line drawing
-            DrawLine(56, 60, 1400, 4, Color.Black); //top
-            DrawLine(756, 60, 1400, 4, Color.Black); //bottom
-            DrawLine(56, 60, 4, 700, Color.Black); //left
-            DrawLine(56, 1460, 4, 700, Color.Black); //right
+            DrawLine(0, 60, 1400, 60, Color.Black); //top
+            DrawLine(760, 60, 1400, 60, Color.Black); //bottom
+            DrawLine(0, 0, 60, 820, Color.Black); //left
+            DrawLine(0, 1460, 60, 820, Color.Black); //right
 
             //timer settings
             timer.Interval = speed;
@@ -98,13 +88,11 @@ namespace Snake
             this.WindowState = FormWindowState.Maximized;
             this.MinimumSize = this.Size;
             this.MaximumSize = this.Size;
-
         }
 
         private void Timer_Tick(object sender, EventArgs e)
         {
             moves++;
-            Text = $"{moves}.lépés, sebesség:{speed}, headX1:{headX1}, headY1:{headY1}, headX2:{headX2}, headY2:{headY2}, hossz1:{snakePieces1.LongCount()}, hossz2:{snakePieces2.LongCount()}";
 
             if (!freez1)
             {
@@ -117,12 +105,8 @@ namespace Snake
                 headY2 += dirY2 * SnakePiece.snakeSize;
             }
 
-
             CheckingHiting(headX1, headY1, winnerLabel, restartButton, snakePieces1, "player 2", level, playerCount);
-            if (playerCount == 2)
-            {
-                CheckingHiting(headX2, headY2, winnerLabel, restartButton, snakePieces2, "player 1", level, playerCount);
-            }
+            if (playerCount == 2) CheckingHiting(headX2, headY2, winnerLabel, restartButton, snakePieces2, "player 1", level, playerCount);
 
             //moving snakes
             if (!freez2 && playerCount == 2)
@@ -141,42 +125,20 @@ namespace Snake
             freez2count++;
 
             //check freez end
-            if (freez1count == 20)
-            {
-                freez1 = false;
-            }
-            if (freez2count == 20)
-            {
-                freez2 = false;
-            }
+            if (freez1count == 20) freez1 = false;
+            if (freez2count == 20) freez2 = false;
 
-            //new apple
-            if (moves % appleFrequent == 0 && apples.Count < maxApples)
-            {
-                NewApple(level);
-            }
-
-            //new poison
-            if (moves % poisonFrequent == 0 && poisons.Count < maxPoisons)
-            {
-                NewPoison(level);
-            }
-
-            //new suprise
-            if (moves % supriseFrequent == 0 && suprises.Count < maxSuprises)
-            {
-                NewSuprise(level);
-            }
+            //new foods
+            if (moves % appleFrequent == 0 && apples.Count < maxApples) NewApple(level);
+            if (moves % poisonFrequent == 0 && poisons.Count < maxPoisons) NewPoison(level);
+            if (moves % supriseFrequent == 0 && suprises.Count < maxSuprises) NewSuprise(level);
 
             //speeding
-            if (moves % 20 == 0 && speed > 100) { speed -= 20; timer.Interval = speed; }
+            if (moves % 20 == 0 && speed > 60) { speed -= 20; timer.Interval = speed; }
 
             //draw snake
             DrawSnake(snakePieces1);
-            if (playerCount == 2)
-            {
-                DrawSnake(snakePieces2);
-            }
+            if (playerCount == 2) DrawSnake(snakePieces2);
 
             //add apple or grow snake
             foreach (Apple apple in apples)
@@ -208,13 +170,13 @@ namespace Snake
             //add posion or game end
             foreach (Poison poison in poisons)
             {
-                if (poison.Left == headX1 && poison.Top == headY1 && playerCount ==2)
+                if (poison.Left == headX1 && poison.Top == headY1 && playerCount == 2)
                 {
-                    Winner2();
+                    Winner(2);
                 }
                 else if (poison.Left == headX2 && poison.Top == headY2 && playerCount == 2)
                 {
-                    Winner1();
+                    Winner(1);
                 }
                 else if (poison.Left == headX1 && poison.Top == headY1 && playerCount == 1)
                 {
@@ -245,7 +207,7 @@ namespace Snake
                     {
                         if (snakePieces1.Count() == 1)
                         {
-                            Winner2();
+                            Winner(2);
                         }
                         else
                         {
@@ -273,7 +235,7 @@ namespace Snake
                     {
                         if (snakePieces2.Count() == 1)
                         {
-                            Winner1();
+                            Winner(1);
                         }
                         else
                         {
@@ -317,7 +279,7 @@ namespace Snake
                 {
                     if (headY2 == item.Top && headX2 == item.Left && item != snakePieces1[0])
                     {
-                        Winner1();
+                        Winner(1);
                     }
                 }
 
@@ -325,7 +287,7 @@ namespace Snake
                 {
                     if (headY1 == item.Top && headX1 == item.Left && item != snakePieces2[0])
                     {
-                        Winner2();
+                        Winner(2);
                     }
                 }
             }
@@ -345,11 +307,11 @@ namespace Snake
             {
                 if (length1 == nextLevelLength)
                 {
-                    Winner1(true);
+                    Winner(1, true);
                 }
                 if (length2 == nextLevelLength)
                 {
-                    Winner2(true);
+                    Winner(2, true);
                 }
             }
 
@@ -368,6 +330,8 @@ namespace Snake
                 lastY2 = piece.Top;
             }
         }
+
+        //-------------------------------------------------------------------------------------------------------------------------------
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
@@ -422,29 +386,13 @@ namespace Snake
         public void StartingSnakePieces(int x11, int y11, int x12, int y12, int x21, int y21, int x22, int y22, int playerCount)
         {
             //starting snake snakePieces1
-            SnakePiece sp11 = new SnakePiece
-            {
-                Left = x11,
-                Top = y11
-            };
-            SnakePiece sp12 = new SnakePiece
-            {
-                Left = x12,
-                Top = y12
-            };
+            SnakePiece sp11 = new SnakePiece { Left = x11, Top = y11 };
+            SnakePiece sp12 = new SnakePiece { Left = x12, Top = y12 };
             snakePieces1.Add(sp11);
             snakePieces1.Add(sp12);
 
-            SnakePiece sp21 = new SnakePiece
-            {
-                Left = x21,
-                Top = y21
-            };
-            SnakePiece sp22 = new SnakePiece
-            {
-                Left = x22,
-                Top = y22
-            };
+            SnakePiece sp21 = new SnakePiece { Left = x21, Top = y21 };
+            SnakePiece sp22 = new SnakePiece { Left = x22, Top = y22 };
 
             if (playerCount == 2)
             {
@@ -452,8 +400,6 @@ namespace Snake
                 snakePieces2.Add(sp22);
             }
         }
-
-
 
         //drawings
         public void DrawSnake(List<SnakePiece> snakeList)
@@ -469,7 +415,7 @@ namespace Snake
             line.Width = width;
             line.Height = height;
             line.BackColor = color;
-            line.BorderStyle = BorderStyle.Fixed3D;
+            //line.BorderStyle = BorderStyle.Fixed3D;
             this.Controls.Add(line);
         }
 
@@ -490,130 +436,71 @@ namespace Snake
 
 
         //new foods  put out
-        public void NewApple(int level)
+        public List<int> SetBounds(int level)
         {
+            int top = 0;
+            int left = 0;
             if (level == 1)
             {
-                Apple apple = new Apple();
-                apple.Left = 80 + rnd.Next(0, screenWidth / SnakePiece.snakeSize) * SnakePiece.snakeSize - SnakePiece.snakeSize;
-                apple.Top = 80 + (rnd.Next(0, screenHeight / SnakePiece.snakeSize - 3) * SnakePiece.snakeSize - SnakePiece.snakeSize);
-                apples.Add(apple);
+                left = 80 + rnd.Next(0, screenWidth / SnakePiece.snakeSize) * SnakePiece.snakeSize - SnakePiece.snakeSize;
+                top = 80 + (rnd.Next(0, screenHeight / SnakePiece.snakeSize - 3) * SnakePiece.snakeSize - SnakePiece.snakeSize);
             }
-
-            if (level == 2)
+            else if (level == 2)
             {
-                int left = 80 + rnd.Next(0, screenWidth / SnakePiece.snakeSize) * SnakePiece.snakeSize - SnakePiece.snakeSize;
-                int top = 80 + (rnd.Next(0, screenHeight / SnakePiece.snakeSize - 3) * SnakePiece.snakeSize - SnakePiece.snakeSize);
-                while ((top == 200 || top == 600) && left >= 200 && left < 1320)
+                int testLeft = 80 + rnd.Next(0, screenWidth / SnakePiece.snakeSize) * SnakePiece.snakeSize - SnakePiece.snakeSize;
+                int testTop = 80 + (rnd.Next(0, screenHeight / SnakePiece.snakeSize - 3) * SnakePiece.snakeSize - SnakePiece.snakeSize);
+                while ((testTop == 200 || testTop == 600) && testLeft >= 200 && testLeft < 1320)
                 {
-                    left = 80 + rnd.Next(0, screenWidth / SnakePiece.snakeSize) * SnakePiece.snakeSize - SnakePiece.snakeSize;
-                    top = 80 + (rnd.Next(0, screenHeight / SnakePiece.snakeSize - 3) * SnakePiece.snakeSize - SnakePiece.snakeSize);
+                    testLeft = 80 + rnd.Next(0, screenWidth / SnakePiece.snakeSize) * SnakePiece.snakeSize - SnakePiece.snakeSize;
+                    testTop = 80 + (rnd.Next(0, screenHeight / SnakePiece.snakeSize - 3) * SnakePiece.snakeSize - SnakePiece.snakeSize);
                 }
-                Apple apple = new Apple();
-                apple.Left = left;
-                apple.Top = top;
-                apples.Add(apple);
+                left = testLeft;
+                top = testTop;
             }
 
             if (level >= 3)
             {
-                int left = 80 + rnd.Next(0, screenWidth / SnakePiece.snakeSize) * SnakePiece.snakeSize - SnakePiece.snakeSize;
-                int top = 80 + (rnd.Next(0, screenHeight / SnakePiece.snakeSize - 3) * SnakePiece.snakeSize - SnakePiece.snakeSize);
-                while (((top == 200 || top == 600) && left >= 200 && left < 1320) ||
-                    ((left == 300 || left == 1220) && top >= 260 && top < 560))
+                int testLeft = 80 + rnd.Next(0, screenWidth / SnakePiece.snakeSize) * SnakePiece.snakeSize - SnakePiece.snakeSize;
+                int testTop = 80 + (rnd.Next(0, screenHeight / SnakePiece.snakeSize - 3) * SnakePiece.snakeSize - SnakePiece.snakeSize);
+                while (((testTop == 200 || testTop == 600) && testLeft >= 200 && testLeft < 1320) ||
+                    ((testLeft == 300 || testLeft == 1220) && testTop >= 260 && testTop < 560))
                 {
-                    left = 80 + rnd.Next(0, screenWidth / SnakePiece.snakeSize) * SnakePiece.snakeSize - SnakePiece.snakeSize;
-                    top = 80 + (rnd.Next(0, screenHeight / SnakePiece.snakeSize - 3) * SnakePiece.snakeSize - SnakePiece.snakeSize);
+                    testLeft = 80 + rnd.Next(0, screenWidth / SnakePiece.snakeSize) * SnakePiece.snakeSize - SnakePiece.snakeSize;
+                    testTop = 80 + (rnd.Next(0, screenHeight / SnakePiece.snakeSize - 3) * SnakePiece.snakeSize - SnakePiece.snakeSize);
                 }
-                Apple apple = new Apple();
-                apple.Left = left;
-                apple.Top = top;
-                apples.Add(apple);
+                left = testLeft;
+                top = testTop;
             }
+            List<int> list = new List<int>();
+            list.Add(left);
+            list.Add(top);
+            return list;
+        }
+        public void NewApple(int level)
+        {
+            List<int> list = SetBounds(level);
+            Apple apple = new Apple();
+            apple.Left = list[0];
+            apple.Top = list[1];
+            apples.Add(apple);
         }
 
         public void NewPoison(int level)
         {
-            if (level == 1)
-            {
-                Poison poison = new Poison();
-                poison.Left = 80 + rnd.Next(0, screenWidth / SnakePiece.snakeSize) * SnakePiece.snakeSize - SnakePiece.snakeSize;
-                poison.Top = 80 + (rnd.Next(0, screenHeight / SnakePiece.snakeSize - 3) * SnakePiece.snakeSize - SnakePiece.snakeSize);
-                poisons.Add(poison);
-            }
-
-            if (level == 2)
-            {
-                int left = 80 + rnd.Next(0, screenWidth / SnakePiece.snakeSize) * SnakePiece.snakeSize - SnakePiece.snakeSize;
-                int top = 80 + (rnd.Next(0, screenHeight / SnakePiece.snakeSize - 3) * SnakePiece.snakeSize - SnakePiece.snakeSize);
-                while ((top == 200 || top == 600) && left >= 200 && left < 1320)
-                {
-                    left = 80 + rnd.Next(0, screenWidth / SnakePiece.snakeSize) * SnakePiece.snakeSize - SnakePiece.snakeSize;
-                    top = 80 + (rnd.Next(0, screenHeight / SnakePiece.snakeSize - 3) * SnakePiece.snakeSize - SnakePiece.snakeSize);
-                }
-                Poison poison = new Poison();
-                poison.Left = left;
-                poison.Top = top;
-                poisons.Add(poison);
-            }
-
-            if (level >= 3)
-            {
-                int left = 80 + rnd.Next(0, screenWidth / SnakePiece.snakeSize) * SnakePiece.snakeSize - SnakePiece.snakeSize;
-                int top = 80 + (rnd.Next(0, screenHeight / SnakePiece.snakeSize - 3) * SnakePiece.snakeSize - SnakePiece.snakeSize);
-                while (((top == 200 || top == 600) && left >= 200 && left < 1320) ||
-                    ((left == 300 || left == 1220) && top >= 260 && top < 560))
-                {
-                    left = 80 + rnd.Next(0, screenWidth / SnakePiece.snakeSize) * SnakePiece.snakeSize - SnakePiece.snakeSize;
-                    top = 80 + (rnd.Next(0, screenHeight / SnakePiece.snakeSize - 3) * SnakePiece.snakeSize - SnakePiece.snakeSize);
-                }
-                Poison poison = new Poison();
-                poison.Left = left;
-                poison.Top = top;
-                poisons.Add(poison);
-            }
+            List<int> list = SetBounds(level);
+            Poison poison = new Poison();
+            poison.Left = list[0];
+            poison.Top = list[1];
+            poisons.Add(poison);
         }
 
         public void NewSuprise(int level)
         {
-            if (level == 1)
-            {
-                SupriseFood suprise = new SupriseFood();
-                suprise.Left = 80 + rnd.Next(0, screenWidth / SnakePiece.snakeSize) * SnakePiece.snakeSize - SnakePiece.snakeSize;
-                suprise.Top = 80 + (rnd.Next(0, screenHeight / SnakePiece.snakeSize - 3) * SnakePiece.snakeSize - SnakePiece.snakeSize);
-                suprises.Add(suprise);
-            }
-
-            if (level == 2)
-            {
-                int left = 80 + rnd.Next(0, screenWidth / SnakePiece.snakeSize) * SnakePiece.snakeSize - SnakePiece.snakeSize;
-                int top = 80 + (rnd.Next(0, screenHeight / SnakePiece.snakeSize - 3) * SnakePiece.snakeSize - SnakePiece.snakeSize);
-                while ((top == 200 || top == 600) && left >= 200 && left < 1320)
-                {
-                    left = 80 + rnd.Next(0, screenWidth / SnakePiece.snakeSize) * SnakePiece.snakeSize - SnakePiece.snakeSize;
-                    top = 80 + (rnd.Next(0, screenHeight / SnakePiece.snakeSize - 3) * SnakePiece.snakeSize - SnakePiece.snakeSize);
-                }
-                SupriseFood suprise = new SupriseFood();
-                suprise.Left = left;
-                suprise.Top = top;
-                suprises.Add(suprise);
-            }
-
-            if (level >= 3)
-            {
-                int left = 80 + rnd.Next(0, screenWidth / SnakePiece.snakeSize) * SnakePiece.snakeSize - SnakePiece.snakeSize;
-                int top = 80 + (rnd.Next(0, screenHeight / SnakePiece.snakeSize - 3) * SnakePiece.snakeSize - SnakePiece.snakeSize);
-                while (((top == 200 || top == 600) && left >= 200 && left < 1320) ||
-                    ((left == 300 || left == 1220) && top >= 260 && top < 560))
-                {
-                    left = 80 + rnd.Next(0, screenWidth / SnakePiece.snakeSize) * SnakePiece.snakeSize - SnakePiece.snakeSize;
-                    top = 80 + (rnd.Next(0, screenHeight / SnakePiece.snakeSize - 3) * SnakePiece.snakeSize - SnakePiece.snakeSize);
-                }
-                SupriseFood suprise = new SupriseFood();
-                suprise.Left = left;
-                suprise.Top = top;
-                suprises.Add(suprise);
-            }
+            List<int> list = SetBounds(level);
+            SupriseFood suprise = new SupriseFood();
+            suprise.Left = list[0];
+            suprise.Top = list[1];
+            suprises.Add(suprise);
         }
 
 
@@ -630,7 +517,7 @@ namespace Snake
                         headX < 60 || headX == screenWidth + 60) && item != snakeList[snakeList.Count() - 1]) //TODO-screen size-hoz igazítás
                     {
                         timer.Stop();
-                        winnerLabel.Text = winner + " is the winner4.";
+                        winnerLabel.Text = winner + " is the winner.";
                         if (winner == "player 2" && !point) { point2++; point = true; }
                         if (winner == "player 1" && !point) { point1++; point = true; }
                         winnerLabel.Visible = true;
@@ -652,7 +539,7 @@ namespace Snake
                         timer.Stop();
                         if (winner == "player 2" && !point) { point2++; point = true; }
                         if (winner == "player 1" && !point) { point1++; point = true; }
-                        winnerLabel.Text = winner + " is the winner4.";
+                        winnerLabel.Text = winner + " is the winner.";
                         winnerLabel.Visible = true;
                         restartButton.Visible = true;
                     }
@@ -674,12 +561,12 @@ namespace Snake
                     int position = 1;
                     int lastId = 0;
                     List<Score> list = dbManager.GetScores();
-                    foreach (Score score in list) 
-                    { 
-                        if (score.id > lastId) { lastId = score.id; } 
-                        if (length1+2 <= score.score) { position++; }
+                    foreach (Score score in list)
+                    {
+                        if (score.id > lastId) { lastId = score.id; }
+                        if (length1 + 2 <= score.score) { position++; }
                     }
-                    dbManager.AddScore(++lastId, player1.id, length1+2, DateTime.Now);
+                    dbManager.AddScore(++lastId, player1.id, length1 + 2, DateTime.Now);
                     positionLabel.Text = "Your position is: " + position.ToString();
                     positionLabel.Visible = true;
                 }
@@ -698,7 +585,7 @@ namespace Snake
                         timer.Stop();
                         if (winner == "player 2" && !point) { point2++; point = true; }
                         if (winner == "player 1" && !point) { point1++; point = true; }
-                        winnerLabel.Text = winner + " is the winner4.";
+                        winnerLabel.Text = winner + " is the winner.";
                         winnerLabel.Visible = true;
                         restartButton.Visible = true;
                     }
@@ -708,49 +595,30 @@ namespace Snake
 
         public void ControlsRemove()
         {
-            foreach (SnakePiece piece in snakePieces1)
-            {
-                Controls.Remove(piece);
-            }
+            foreach (SnakePiece piece in snakePieces1) Controls.Remove(piece);
 
-            foreach (SnakePiece piece in snakePieces2)
-            {
-                Controls.Remove(piece);
-            }
+            foreach (SnakePiece piece in snakePieces2) Controls.Remove(piece);
 
-            foreach (Apple piece in apples)
-            {
-                Controls.Remove(piece);
-            }
+            foreach (Apple piece in apples) Controls.Remove(piece);
 
-            foreach (Poison piece in poisons)
-            {
-                Controls.Remove(piece);
-            }
+            foreach (Poison piece in poisons) Controls.Remove(piece);
 
-            foreach (SupriseFood supriseFood in suprises)
-            {
-                Controls.Remove(supriseFood);
-            }
+            foreach (SupriseFood supriseFood in suprises) Controls.Remove(supriseFood);
         }
 
-
-        //winners
-        public void Winner1(bool nextLevel = false)
+        public void Winner(byte player, bool nextLevel = false)
         {
+            if (player == 1)
+            {
+                point1++;
+                winnerLabel.Text = "Player 1 is the winner.";
+            }
+            else
+            {
+                point2++;
+                winnerLabel.Text = "Player 2 is the winner.";
+            }
             timer.Stop();
-            point1++;
-            winnerLabel.Text = "Player 1 is the winner.";
-            winnerLabel.Visible = true;
-            if (nextLevel) { nextLevelButton.Visible = true; }
-            else { restartButton.Visible = true; }
-        }
-
-        public void Winner2(bool nextLevel = false)
-        {
-            timer.Stop();
-            point2++;
-            winnerLabel.Text = "Player 2 is the winner.";
             winnerLabel.Visible = true;
             if (nextLevel) { nextLevelButton.Visible = true; }
             else { restartButton.Visible = true; }
@@ -763,13 +631,21 @@ namespace Snake
             dbLabel.Visible = vis;
         }
 
+        public void setLoginVisible(bool b)
+        {
+            nameLabel.Visible = b;
+            nameTextbox.Visible = b;
+            usernameLabel.Visible = b;
+            usernameTextbox.Visible = b;
+        }
 
         //click events
-        private void startButton_Click(object sender, EventArgs e)
+        private void setPlayerCountButton_Click(object sender, EventArgs e)
         {
             try
             {
                 playerCount = int.Parse(playerList.Text);
+                errorLabel.Visible = false;
             }
             catch (Exception)
             {
@@ -777,7 +653,21 @@ namespace Snake
                 errorLabel.Visible = true;
                 errorLabel.ForeColor = Color.Red;
             }
-            if (playerCount==1 && !signedIn)
+            if (playerCount > 0)
+            {
+                startButton.Visible = true;
+                setPlayerCountButton.Visible = false;
+            }
+            if (playerCount == 1)
+            {
+                setLoginVisible(true);
+                newAccountButton.Visible = true;
+                signInButton.Visible = true;
+            }
+        }
+        private void startButton_Click(object sender, EventArgs e)
+        {
+            if (playerCount == 1 && !signedIn)
             {
                 errorLabel.Text = "You need to sign in.";
                 errorLabel.Visible = true;
@@ -799,7 +689,7 @@ namespace Snake
                 }
                 if (playerCount == 1) { level = 2; }
                 StartingSnakePieces(160, 100, 180, 100, 1280, 100, 1260, 100, playerCount);
-                setLoginUnVisible();
+                setLoginVisible(false);
                 signInButton.Visible = false;
             }
         }
@@ -956,31 +846,6 @@ namespace Snake
             signInButton.Visible = false;
             registerButton.Visible = true;
         }
-
-
-
-
-
-
-
-        //put out
-        public void setLoginUnVisible()
-        {
-                nameLabel.Visible = false;
-                nameTextbox.Visible = false;
-                usernameLabel.Visible = false;
-                usernameTextbox.Visible = false;
-        }
-
-        //delete
-        //public void setLoginVisible()
-        //{
-        //        nameLabel.Visible = true;
-        //        nameTextbox.Visible = true;
-        //        usernameLabel.Visible = true;
-        //        usernameTextbox.Visible = true;
-        //        signInButton.Visible = true;
-        //}
     }
 }
 
