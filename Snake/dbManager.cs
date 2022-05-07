@@ -58,5 +58,23 @@ namespace Snake
 
         }
 
+        public static List<Score> GetTopScores()
+        {
+            SnakeEntities1 context = new SnakeEntities1();
+
+            var scores = (from Score in context.Scores
+                          select Score).ToList();
+
+            List<Score> orderedScores = scores.OrderBy(order => order.score).ThenBy(order => order.score).ToList();
+
+            List<Score> topScores = new List<Score>();
+
+            for (int i = 0; i < 3; i++)
+            {
+                topScores.Add(orderedScores[scores.Count - i - 1]);
+            }
+
+            return topScores;
+        }
     }
 }

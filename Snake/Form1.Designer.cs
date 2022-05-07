@@ -47,15 +47,17 @@
             this.newAccountButton = new System.Windows.Forms.Button();
             this.positionLabel = new System.Windows.Forms.Label();
             this.setPlayerCountButton = new System.Windows.Forms.Button();
+            this.moveCountLabel = new System.Windows.Forms.Label();
+            this.timeLabel = new System.Windows.Forms.Label();
+            this.topScoresLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // startButton
             // 
             this.startButton.BackColor = System.Drawing.Color.Green;
-            this.startButton.Location = new System.Drawing.Point(960, 463);
-            this.startButton.Margin = new System.Windows.Forms.Padding(4);
+            this.startButton.Location = new System.Drawing.Point(720, 376);
             this.startButton.Name = "startButton";
-            this.startButton.Size = new System.Drawing.Size(176, 65);
+            this.startButton.Size = new System.Drawing.Size(132, 53);
             this.startButton.TabIndex = 0;
             this.startButton.Text = "Start";
             this.startButton.UseVisualStyleBackColor = false;
@@ -65,10 +67,9 @@
             // restartButton
             // 
             this.restartButton.BackColor = System.Drawing.Color.Green;
-            this.restartButton.Location = new System.Drawing.Point(960, 463);
-            this.restartButton.Margin = new System.Windows.Forms.Padding(4);
+            this.restartButton.Location = new System.Drawing.Point(720, 376);
             this.restartButton.Name = "restartButton";
-            this.restartButton.Size = new System.Drawing.Size(176, 65);
+            this.restartButton.Size = new System.Drawing.Size(132, 53);
             this.restartButton.TabIndex = 1;
             this.restartButton.Text = "Restart";
             this.restartButton.UseVisualStyleBackColor = false;
@@ -78,12 +79,11 @@
             // score1Label
             // 
             this.score1Label.AutoSize = true;
-            this.score1Label.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.score1Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.score1Label.Location = new System.Drawing.Point(84, 9);
-            this.score1Label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.score1Label.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.score1Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.score1Label.Location = new System.Drawing.Point(57, 0);
             this.score1Label.Name = "score1Label";
-            this.score1Label.Size = new System.Drawing.Size(73, 54);
+            this.score1Label.Size = new System.Drawing.Size(39, 29);
             this.score1Label.TabIndex = 3;
             this.score1Label.Text = "ds";
             // 
@@ -92,10 +92,9 @@
             this.winnerLabel.AutoSize = true;
             this.winnerLabel.BackColor = System.Drawing.Color.BurlyWood;
             this.winnerLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.winnerLabel.Location = new System.Drawing.Point(871, 363);
-            this.winnerLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.winnerLabel.Location = new System.Drawing.Point(685, 309);
             this.winnerLabel.Name = "winnerLabel";
-            this.winnerLabel.Size = new System.Drawing.Size(161, 52);
+            this.winnerLabel.Size = new System.Drawing.Size(127, 39);
             this.winnerLabel.TabIndex = 4;
             this.winnerLabel.Text = "Winner";
             this.winnerLabel.Visible = false;
@@ -103,11 +102,12 @@
             // pointLabel
             // 
             this.pointLabel.AutoSize = true;
-            this.pointLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.pointLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 28.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.pointLabel.Location = new System.Drawing.Point(1097, 9);
+            this.pointLabel.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.pointLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.pointLabel.Location = new System.Drawing.Point(1000, 0);
+            this.pointLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.pointLabel.Name = "pointLabel";
-            this.pointLabel.Size = new System.Drawing.Size(86, 54);
+            this.pointLabel.Size = new System.Drawing.Size(45, 29);
             this.pointLabel.TabIndex = 5;
             this.pointLabel.Text = "fsd";
             // 
@@ -115,9 +115,10 @@
             // 
             this.nextLevelButton.BackColor = System.Drawing.Color.Green;
             this.nextLevelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.nextLevelButton.Location = new System.Drawing.Point(960, 464);
+            this.nextLevelButton.Location = new System.Drawing.Point(720, 377);
+            this.nextLevelButton.Margin = new System.Windows.Forms.Padding(2);
             this.nextLevelButton.Name = "nextLevelButton";
-            this.nextLevelButton.Size = new System.Drawing.Size(176, 65);
+            this.nextLevelButton.Size = new System.Drawing.Size(132, 53);
             this.nextLevelButton.TabIndex = 6;
             this.nextLevelButton.Text = "Next level";
             this.nextLevelButton.UseVisualStyleBackColor = false;
@@ -130,36 +131,40 @@
             this.playerList.Items.AddRange(new object[] {
             "1",
             "2"});
-            this.playerList.Location = new System.Drawing.Point(960, 380);
+            this.playerList.Location = new System.Drawing.Point(724, 309);
+            this.playerList.Margin = new System.Windows.Forms.Padding(2);
             this.playerList.Name = "playerList";
-            this.playerList.Size = new System.Drawing.Size(121, 24);
+            this.playerList.Size = new System.Drawing.Size(92, 21);
             this.playerList.TabIndex = 7;
             // 
             // playerLabel
             // 
             this.playerLabel.AutoSize = true;
             this.playerLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.playerLabel.Location = new System.Drawing.Point(960, 336);
+            this.playerLabel.Location = new System.Drawing.Point(725, 269);
+            this.playerLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.playerLabel.Name = "playerLabel";
-            this.playerLabel.Size = new System.Drawing.Size(152, 20);
+            this.playerLabel.Size = new System.Drawing.Size(127, 17);
             this.playerLabel.TabIndex = 8;
             this.playerLabel.Text = "How many players:";
             // 
             // errorLabel
             // 
             this.errorLabel.AutoSize = true;
-            this.errorLabel.Location = new System.Drawing.Point(960, 532);
+            this.errorLabel.Location = new System.Drawing.Point(720, 432);
+            this.errorLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.errorLabel.Name = "errorLabel";
-            this.errorLabel.Size = new System.Drawing.Size(44, 16);
+            this.errorLabel.Size = new System.Drawing.Size(35, 13);
             this.errorLabel.TabIndex = 9;
             this.errorLabel.Text = "label1";
             this.errorLabel.Visible = false;
             // 
             // nameTextbox
             // 
-            this.nameTextbox.Location = new System.Drawing.Point(262, 300);
+            this.nameTextbox.Location = new System.Drawing.Point(196, 244);
+            this.nameTextbox.Margin = new System.Windows.Forms.Padding(2);
             this.nameTextbox.Name = "nameTextbox";
-            this.nameTextbox.Size = new System.Drawing.Size(122, 22);
+            this.nameTextbox.Size = new System.Drawing.Size(92, 20);
             this.nameTextbox.TabIndex = 11;
             this.nameTextbox.Visible = false;
             // 
@@ -167,9 +172,10 @@
             // 
             this.signInButton.BackColor = System.Drawing.Color.BurlyWood;
             this.signInButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.signInButton.Location = new System.Drawing.Point(262, 463);
+            this.signInButton.Location = new System.Drawing.Point(196, 376);
+            this.signInButton.Margin = new System.Windows.Forms.Padding(2);
             this.signInButton.Name = "signInButton";
-            this.signInButton.Size = new System.Drawing.Size(122, 47);
+            this.signInButton.Size = new System.Drawing.Size(92, 38);
             this.signInButton.TabIndex = 12;
             this.signInButton.Text = "sign in";
             this.signInButton.UseVisualStyleBackColor = false;
@@ -178,9 +184,10 @@
             // 
             // usernameTextbox
             // 
-            this.usernameTextbox.Location = new System.Drawing.Point(262, 404);
+            this.usernameTextbox.Location = new System.Drawing.Point(196, 328);
+            this.usernameTextbox.Margin = new System.Windows.Forms.Padding(2);
             this.usernameTextbox.Name = "usernameTextbox";
-            this.usernameTextbox.Size = new System.Drawing.Size(122, 22);
+            this.usernameTextbox.Size = new System.Drawing.Size(92, 20);
             this.usernameTextbox.TabIndex = 13;
             this.usernameTextbox.Visible = false;
             // 
@@ -189,9 +196,10 @@
             this.nameLabel.AccessibleDescription = "";
             this.nameLabel.AutoSize = true;
             this.nameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.nameLabel.Location = new System.Drawing.Point(263, 252);
+            this.nameLabel.Location = new System.Drawing.Point(197, 205);
+            this.nameLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.nameLabel.Name = "nameLabel";
-            this.nameLabel.Size = new System.Drawing.Size(70, 25);
+            this.nameLabel.Size = new System.Drawing.Size(55, 20);
             this.nameLabel.TabIndex = 14;
             this.nameLabel.Text = "Name:";
             this.nameLabel.Visible = false;
@@ -200,9 +208,10 @@
             // 
             this.usernameLabel.AutoSize = true;
             this.usernameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.usernameLabel.Location = new System.Drawing.Point(257, 363);
+            this.usernameLabel.Location = new System.Drawing.Point(193, 295);
+            this.usernameLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.usernameLabel.Name = "usernameLabel";
-            this.usernameLabel.Size = new System.Drawing.Size(108, 25);
+            this.usernameLabel.Size = new System.Drawing.Size(87, 20);
             this.usernameLabel.TabIndex = 15;
             this.usernameLabel.Text = "Username:";
             this.usernameLabel.Visible = false;
@@ -211,9 +220,10 @@
             // 
             this.registerButton.BackColor = System.Drawing.Color.BurlyWood;
             this.registerButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.registerButton.Location = new System.Drawing.Point(262, 464);
+            this.registerButton.Location = new System.Drawing.Point(196, 377);
+            this.registerButton.Margin = new System.Windows.Forms.Padding(2);
             this.registerButton.Name = "registerButton";
-            this.registerButton.Size = new System.Drawing.Size(122, 47);
+            this.registerButton.Size = new System.Drawing.Size(92, 38);
             this.registerButton.TabIndex = 16;
             this.registerButton.Text = "register";
             this.registerButton.UseVisualStyleBackColor = false;
@@ -223,9 +233,10 @@
             // dbLabel
             // 
             this.dbLabel.AutoSize = true;
-            this.dbLabel.Location = new System.Drawing.Point(265, 514);
+            this.dbLabel.Location = new System.Drawing.Point(199, 418);
+            this.dbLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.dbLabel.Name = "dbLabel";
-            this.dbLabel.Size = new System.Drawing.Size(44, 16);
+            this.dbLabel.Size = new System.Drawing.Size(35, 13);
             this.dbLabel.TabIndex = 21;
             this.dbLabel.Text = "label1";
             this.dbLabel.Visible = false;
@@ -233,9 +244,10 @@
             // newAccountButton
             // 
             this.newAccountButton.BackColor = System.Drawing.Color.BurlyWood;
-            this.newAccountButton.Location = new System.Drawing.Point(262, 533);
+            this.newAccountButton.Location = new System.Drawing.Point(196, 433);
+            this.newAccountButton.Margin = new System.Windows.Forms.Padding(2);
             this.newAccountButton.Name = "newAccountButton";
-            this.newAccountButton.Size = new System.Drawing.Size(122, 31);
+            this.newAccountButton.Size = new System.Drawing.Size(92, 25);
             this.newAccountButton.TabIndex = 23;
             this.newAccountButton.Text = "new account";
             this.newAccountButton.UseVisualStyleBackColor = false;
@@ -245,9 +257,11 @@
             // positionLabel
             // 
             this.positionLabel.AutoSize = true;
-            this.positionLabel.Location = new System.Drawing.Point(960, 571);
+            this.positionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.positionLabel.Location = new System.Drawing.Point(720, 464);
+            this.positionLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.positionLabel.Name = "positionLabel";
-            this.positionLabel.Size = new System.Drawing.Size(44, 16);
+            this.positionLabel.Size = new System.Drawing.Size(51, 20);
             this.positionLabel.TabIndex = 24;
             this.positionLabel.Text = "label1";
             this.positionLabel.Visible = false;
@@ -256,20 +270,57 @@
             // 
             this.setPlayerCountButton.BackColor = System.Drawing.Color.Green;
             this.setPlayerCountButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.setPlayerCountButton.Location = new System.Drawing.Point(960, 464);
+            this.setPlayerCountButton.Location = new System.Drawing.Point(720, 377);
+            this.setPlayerCountButton.Margin = new System.Windows.Forms.Padding(2);
             this.setPlayerCountButton.Name = "setPlayerCountButton";
-            this.setPlayerCountButton.Size = new System.Drawing.Size(176, 65);
+            this.setPlayerCountButton.Size = new System.Drawing.Size(132, 53);
             this.setPlayerCountButton.TabIndex = 25;
             this.setPlayerCountButton.Text = "Set players";
             this.setPlayerCountButton.UseVisualStyleBackColor = false;
             this.setPlayerCountButton.Click += new System.EventHandler(this.setPlayerCountButton_Click);
             // 
+            // moveCountLabel
+            // 
+            this.moveCountLabel.AutoSize = true;
+            this.moveCountLabel.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.moveCountLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.moveCountLabel.Location = new System.Drawing.Point(538, 0);
+            this.moveCountLabel.Name = "moveCountLabel";
+            this.moveCountLabel.Size = new System.Drawing.Size(39, 29);
+            this.moveCountLabel.TabIndex = 26;
+            this.moveCountLabel.Text = "ds";
+            // 
+            // timeLabel
+            // 
+            this.timeLabel.AutoSize = true;
+            this.timeLabel.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.timeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.timeLabel.Location = new System.Drawing.Point(712, 0);
+            this.timeLabel.Name = "timeLabel";
+            this.timeLabel.Size = new System.Drawing.Size(39, 29);
+            this.timeLabel.TabIndex = 27;
+            this.timeLabel.Text = "ds";
+            // 
+            // topScoresLabel
+            // 
+            this.topScoresLabel.AutoSize = true;
+            this.topScoresLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.topScoresLabel.Location = new System.Drawing.Point(720, 500);
+            this.topScoresLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.topScoresLabel.Name = "topScoresLabel";
+            this.topScoresLabel.Size = new System.Drawing.Size(0, 20);
+            this.topScoresLabel.TabIndex = 28;
+            this.topScoresLabel.Visible = false;
+            // 
             // form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(1803, 1055);
+            this.ClientSize = new System.Drawing.Size(1352, 857);
+            this.Controls.Add(this.topScoresLabel);
+            this.Controls.Add(this.timeLabel);
+            this.Controls.Add(this.moveCountLabel);
             this.Controls.Add(this.setPlayerCountButton);
             this.Controls.Add(this.positionLabel);
             this.Controls.Add(this.newAccountButton);
@@ -290,7 +341,6 @@
             this.Controls.Add(this.restartButton);
             this.Controls.Add(this.startButton);
             this.KeyPreview = true;
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "form1";
             this.Text = "Í";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -320,6 +370,9 @@
         private System.Windows.Forms.Button newAccountButton;
         private System.Windows.Forms.Label positionLabel;
         private System.Windows.Forms.Button setPlayerCountButton;
+        private System.Windows.Forms.Label moveCountLabel;
+        private System.Windows.Forms.Label timeLabel;
+        private System.Windows.Forms.Label topScoresLabel;
     }
 }
 
