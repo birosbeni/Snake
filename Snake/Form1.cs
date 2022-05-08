@@ -158,28 +158,16 @@ namespace Snake
             //add apple or grow snake
             foreach (Apple apple in apples)
             {
-                if (apple.Left == headX1 && apple.Top == headY1)
+                if ((apple.Left == headX1 && apple.Top == headY1) || (apple.Left == headX2 && apple.Top == headY2))
                 {
                     apples.Remove(apple);
                     Controls.Remove(apple);
-
-                    AddNewSnakePiece(snakePieces1, lastX1, lastY1);
-
-                    return;
-                }
-                else if (apple.Left == headX2 && apple.Top == headY2)
-                {
-                    apples.Remove(apple);
-                    Controls.Remove(apple);
-
-                    AddNewSnakePiece(snakePieces2, lastX2, lastY2);
+                    if (apple.Left == headX1 && apple.Top == headY1) AddNewSnakePiece(snakePieces1, lastX1, lastY1);
+                    else AddNewSnakePiece(snakePieces2, lastX2, lastY2);
 
                     return;
                 }
-                else
-                {
-                    Controls.Add(apple);
-                }
+                else Controls.Add(apple);
             }
 
             //add posion or game end
@@ -289,23 +277,16 @@ namespace Snake
             }
 
 
-            //check crushing - TODO - egybe a checkHitingel
             if (playerCount == 2)
             {
                 foreach (SnakePiece item in snakePieces1)
                 {
-                    if (headY2 == item.Top && headX2 == item.Left && item != snakePieces1[0])
-                    {
-                        Winner(1);
-                    }
+                    if (headY2 == item.Top && headX2 == item.Left && item != snakePieces1[0]) { Winner(1); }
                 }
 
                 foreach (SnakePiece item in snakePieces2)
                 {
-                    if (headY1 == item.Top && headX1 == item.Left && item != snakePieces2[0])
-                    {
-                        Winner(2);
-                    }
+                    if (headY1 == item.Top && headX1 == item.Left && item != snakePieces2[0]) { Winner(2); }
                 }
             }
 
@@ -364,7 +345,8 @@ namespace Snake
                 if (e.KeyCode == Keys.Left && dirX2 != 1) { dirX2 = -1; dirY2 = 0; }
                 if (e.KeyCode == Keys.Right && dirX2 != -1) { dirX2 = 1; dirY2 = 0; }
             }
-        }//TODo -if (e.KeyCode == Keys.W && dirY1 != 1 && snakePieces1[0].Top - 20 != snakePieces1[1].Top && snakePieces1[0].Left != snakePieces1[1].Left) { dirX1 = 0; dirY1 = -1;  
+        }
+        //if (e.KeyCode == Keys.W && dirY1 != 1 && snakePieces1[0].Top - 20 != snakePieces1[1].Top && snakePieces1[0].Left != snakePieces1[1].Left) { dirX1 = 0; dirY1 = -1;  
 
         //snake methods
         public void AddSnakePiece(int x, int y, List<SnakePiece> snakeList)
@@ -529,17 +511,10 @@ namespace Snake
             {
                 foreach (SnakePiece item in snakeList)
                 {
-                    if (((item.Top == headY && item.Left == headX) ||
-                        headY < 60 || headY == screenHeight + 60 ||
-                        headX < 60 || headX == screenWidth + 60) && item != snakeList[snakeList.Count() - 1]) //TODO-screen size-hoz igazítás
+                    if (((item.Top == headY && item.Left == headX) || headY < 60 || headY == screenHeight + 60 ||
+                        headX < 60 || headX == screenWidth + 60) && item != snakeList[snakeList.Count() - 1]) 
                     {
-                        timer.Stop();
-                        time.Stop();
-                        winnerLabel.Text = winner + " is the winner.";
-                        if (winner == "player 2" && !point) { point2++; point = true; }
-                        if (winner == "player 1" && !point) { point1++; point = true; }
-                        winnerLabel.Visible = true;
-                        restartButton.Visible = true;
+                        Hit(point, winner);
                     }
                 }
             }
@@ -548,25 +523,13 @@ namespace Snake
                 bool saveScore = false;
                 foreach (SnakePiece item in snakeList)
                 {
-                    if (((item.Top == headY && item.Left == headX) ||
-                        headY < 60 || headY == screenHeight + 60 ||
-                        headX < 60 || headX == screenWidth + 60 ||
-                        ((headY == 200 || headY == 600) && headX >= 200 && headX < 1320))
-                        && playerCount == 2 && item != snakeList[snakeList.Count() - 1]) //TODO-screen size-hoz igazítás
+                    if (((item.Top == headY && item.Left == headX) || headY < 60 || headY == screenHeight + 60 || headX < 60 || headX == screenWidth + 60 ||
+                        ((headY == 200 || headY == 600) && headX >= 200 && headX < 1320)) && playerCount == 2 && item != snakeList[snakeList.Count() - 1]) 
                     {
-                        timer.Stop();
-                        time.Stop();
-                        if (winner == "player 2" && !point) { point2++; point = true; }
-                        if (winner == "player 1" && !point) { point1++; point = true; }
-                        winnerLabel.Text = winner + " is the winner.";
-                        winnerLabel.Visible = true;
-                        restartButton.Visible = true;
+                        Hit(point, winner);
                     }
-                    if (((item.Top == headY && item.Left == headX) ||
-                        headY < 60 || headY == screenHeight + 60 ||
-                        headX < 60 || headX == screenWidth + 60 ||
-                        ((headY == 200 || headY == 600) && headX >= 200 && headX < 1320))
-                        && playerCount == 1 && item != snakeList[snakeList.Count() - 1]) //TODO-screen size-hoz igazítás
+                    if (((item.Top == headY && item.Left == headX) || headY < 60 || headY == screenHeight + 60 || headX < 60 || headX == screenWidth + 60 ||
+                        ((headY == 200 || headY == 600) && headX >= 200 && headX < 1320)) && playerCount == 1 && item != snakeList[snakeList.Count() - 1]) 
                     {
                         timer.Stop();
                         time.Stop();
@@ -593,7 +556,7 @@ namespace Snake
                     topScoresLabel.Text = "";
                     foreach (Score score in topScores)
                     {
-                        topScoresLabel.Text += $"Top {topScores.IndexOf(score)+1} score: {score.score}\n";
+                        topScoresLabel.Text += $"Top {topScores.IndexOf(score) + 1} score: {score.score}\n";
                     }
                     topScoresLabel.Visible = true;
                 }
@@ -602,23 +565,25 @@ namespace Snake
             {
                 foreach (SnakePiece item in snakeList)
                 {
-                    if (((item.Top == headY && item.Left == headX) ||
-                        headY < 60 || headY == screenHeight + 60 ||
-                        headX < 60 || headX == screenWidth + 60 ||
-                        ((headY == 200 || headY == 600) && headX >= 200 && headX < 1320) ||
-                        ((headX == 300 || headX == 1220) && headY >= 260 && headY < 560))
-                        && item != snakeList[snakeList.Count() - 1]) //TODO-screen size-hoz igazítás
+                    if (((item.Top == headY && item.Left == headX) || headY < 60 || headY == screenHeight + 60 || headX < 60 || headX == screenWidth + 60 || 
+                        ((headY == 200 || headY == 600) && headX >= 200 && headX < 1320) || ((headX == 300 || headX == 1220) && headY >= 260 && headY < 560)) 
+                        && item != snakeList[snakeList.Count() - 1]) 
                     {
-                        timer.Stop();
-                        time.Stop();
-                        if (winner == "player 2" && !point) { point2++; point = true; }
-                        if (winner == "player 1" && !point) { point1++; point = true; }
-                        winnerLabel.Text = winner + " is the winner.";
-                        winnerLabel.Visible = true;
-                        restartButton.Visible = true;
+                        Hit(point, winner);
                     }
                 }
             }
+        }
+
+        public void Hit(bool point, string winner)
+        {
+            timer.Stop();
+            time.Stop();
+            if (winner == "player 2" && !point) { point2++; point = true; }
+            if (winner == "player 1" && !point) { point1++; point = true; }
+            winnerLabel.Text = winner + " is the winner.";
+            winnerLabel.Visible = true;
+            restartButton.Visible = true;
         }
 
         public void ControlsRemove()
@@ -693,7 +658,16 @@ namespace Snake
                 newAccountButton.Visible = true;
                 signInButton.Visible = true;
             }
+            if (playerCount > 2 || playerCount == 0)
+            {
+                errorLabel.Text = "set valid player count(1 or 2)";
+                errorLabel.Visible = true;
+                errorLabel.ForeColor = Color.Red;
+                startButton.Visible = false;
+                setPlayerCountButton.Visible = true;
+            }
         }
+
         private void startButton_Click(object sender, EventArgs e)
         {
             if (playerCount == 1 && !signedIn)
@@ -882,7 +856,6 @@ namespace Snake
             signInButton.Visible = false;
             registerButton.Visible = true;
         }
-
     }
 }
 
