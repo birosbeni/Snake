@@ -79,13 +79,12 @@
             // score1Label
             // 
             this.score1Label.AutoSize = true;
-            this.score1Label.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.score1Label.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(143)))), ((int)(((byte)(188)))), ((int)(((byte)(143)))));
             this.score1Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.score1Label.Location = new System.Drawing.Point(57, 0);
             this.score1Label.Name = "score1Label";
-            this.score1Label.Size = new System.Drawing.Size(39, 29);
+            this.score1Label.Size = new System.Drawing.Size(0, 29);
             this.score1Label.TabIndex = 3;
-            this.score1Label.Text = "ds";
             // 
             // winnerLabel
             // 
@@ -102,14 +101,13 @@
             // pointLabel
             // 
             this.pointLabel.AutoSize = true;
-            this.pointLabel.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.pointLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(143)))), ((int)(((byte)(188)))), ((int)(((byte)(143)))));
             this.pointLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.pointLabel.Location = new System.Drawing.Point(1000, 0);
             this.pointLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.pointLabel.Name = "pointLabel";
-            this.pointLabel.Size = new System.Drawing.Size(45, 29);
+            this.pointLabel.Size = new System.Drawing.Size(0, 29);
             this.pointLabel.TabIndex = 5;
-            this.pointLabel.Text = "fsd";
             // 
             // nextLevelButton
             // 
@@ -282,24 +280,22 @@
             // moveCountLabel
             // 
             this.moveCountLabel.AutoSize = true;
-            this.moveCountLabel.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.moveCountLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(143)))), ((int)(((byte)(188)))), ((int)(((byte)(143)))));
             this.moveCountLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.moveCountLabel.Location = new System.Drawing.Point(538, 0);
             this.moveCountLabel.Name = "moveCountLabel";
-            this.moveCountLabel.Size = new System.Drawing.Size(39, 29);
+            this.moveCountLabel.Size = new System.Drawing.Size(0, 29);
             this.moveCountLabel.TabIndex = 26;
-            this.moveCountLabel.Text = "ds";
             // 
             // timeLabel
             // 
             this.timeLabel.AutoSize = true;
-            this.timeLabel.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.timeLabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(143)))), ((int)(((byte)(188)))), ((int)(((byte)(143)))));
             this.timeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.timeLabel.Location = new System.Drawing.Point(712, 0);
             this.timeLabel.Name = "timeLabel";
-            this.timeLabel.Size = new System.Drawing.Size(39, 29);
+            this.timeLabel.Size = new System.Drawing.Size(0, 29);
             this.timeLabel.TabIndex = 27;
-            this.timeLabel.Text = "ds";
             // 
             // topScoresLabel
             // 
@@ -316,7 +312,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(143)))), ((int)(((byte)(188)))), ((int)(((byte)(143)))));
             this.ClientSize = new System.Drawing.Size(1352, 857);
             this.Controls.Add(this.topScoresLabel);
             this.Controls.Add(this.timeLabel);

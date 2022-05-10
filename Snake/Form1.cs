@@ -12,17 +12,16 @@ namespace Snake
 {
     public partial class form1 : Form
     {
-        public static int screenWidth = 1400;
-        public static int screenHeight = 700;
         int speed = 300;
         int appleFrequent = 15;
         int poisonFrequent = 50;
         int supriseFrequent = 30;
+        static int screenWidth = 1400;
+        static int screenHeight = 700;
 
         int maxApples = 5;
         int maxPoisons = 3;
         int maxSuprises = 3;
-
         int nextLevelLength = 3;
 
         int playerCount;
@@ -99,9 +98,7 @@ namespace Snake
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.WindowState = FormWindowState.Maximized;
-            this.MinimumSize = this.Size;
-            this.MaximumSize = this.Size;
+            this.Size = new Size(1540, 860);
         }
 
         private void Timer_Tick(object sender, EventArgs e)
@@ -814,41 +811,41 @@ namespace Snake
             List<Player> list = dbManager.GetPlayers();
             string n = "";
             string un = "";
-            try
+            n = nameTextbox.Text;
+            un = usernameTextbox.Text;
+            if (n.Length > 0 && un.Length > 0)
             {
-                n = nameTextbox.Text;
-                un = usernameTextbox.Text;
+                int lastId = 0;
+                foreach (Player player in list) { if (player.id > lastId) { lastId = player.id; } }
+
+                bool freeName = true;
+                bool freeUsername = true;
+                foreach (Player player in list)
+                {
+                    if (player.username == un)
+                    {
+                        SetDbLabel(true, Color.Red, "The username is taken.");
+                        freeUsername = false;
+                    }
+                    if (player.name == n)
+                    {
+                        SetDbLabel(true, Color.Red, "The name is taken.");
+                        freeName = false;
+                    }
+                }
+                if (freeUsername && freeName)
+                {
+                    dbManager.AddPlayer(++lastId, n, un);
+                    signInButton.Visible = true;
+                    registerButton.Visible = false;
+                    SetDbLabel(true, Color.Black, "Succesfull registration. Sign in.");
+                }
             }
-            catch (Exception)
+            else
             {
-                Console.WriteLine("hiba");
+                SetDbLabel(true, Color.Red, "Add a name and username.");
             }
 
-            int lastId = 0;
-            foreach (Player player in list) { if (player.id > lastId) { lastId = player.id; } }
-
-            bool freeName = true;
-            bool freeUsername = true;
-            foreach (Player player in list)
-            {
-                if (player.name == n)
-                {
-                    SetDbLabel(true, Color.Red, "The name is taken.");
-                    freeName = false;
-                }
-                if (player.username == un)
-                {
-                    SetDbLabel(true, Color.Red, "The username is taken.");
-                    freeUsername = false;
-                }
-            }
-            if (freeUsername && freeName)
-            {
-                dbManager.AddPlayer(++lastId, n, un);
-                signInButton.Visible = true;
-                registerButton.Visible = false;
-                SetDbLabel(true, Color.Black, "Succesfull registration. Sign in.");
-            }
         }
 
         private void newAccountButton_Click(object sender, EventArgs e)

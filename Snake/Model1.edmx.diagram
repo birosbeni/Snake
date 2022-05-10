@@ -6,7 +6,7 @@
     <edmx:Diagrams>
       <Diagram DiagramId="59f45af73b70489c9ce9343e7447377f" Name="Diagram1">
         <EntityTypeShape EntityType="SnakeModel.Player" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SnakeModel.Score" Width="1.5" PointX="3.375" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SnakeModel.Score" Width="1.5" PointX="3.25" PointY="0.625" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
